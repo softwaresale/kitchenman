@@ -1,0 +1,89 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
+import { User } from './user.entity';
+import { CreateUserDto, UpdateUserDto } from 'src/dto/user.dto';
+import { Recipe } from 'src/recipe/recipe.entity';
+
+@Injectable()
+export class UserService {
+
+    constructor(
+        @InjectRepository(User)
+        private readonly userRepo: Repository<User>,
+    ) { }
+
+    /**
+     * Creates a new user with basic user info.
+     *
+     * @param createUser new user data transfer object
+     */
+    create(createUser: CreateUserDto): Promise<InsertResult> {
+        const newUser = this.userRepo.create({
+            username: createUser.username,
+            email: createUser.email,
+            firstName: createUser.firstName,
+            lastName: createUser.lastName,
+        });
+        newUser.password = createUser.password;
+        return this.userRepo.insert(newUser);
+    }
+
+    /**
+     * Update an existing user. User is queried by id.
+     *
+     * @param updateUser update user data transfer object
+     */
+    update(id: number, updateUser: UpdateUserDto): Promise<UpdateResult> {
+        // TODO check that user is in database
+        return this.userRepo.update({ id }, updateUser);
+    }
+
+    /**
+     * Deletes a certain user
+     *
+     * @param id User to delete
+     */
+    delete(id: number): Promise<DeleteResult> {
+        // TODO check that user is in database
+        return this.userRepo.delete({ id });
+    }
+
+    /**
+     * Get all user objects
+     */
+    findAll(): Promise<User[]> {
+        return this.userRepo.find();
+    }
+
+    /**
+     * Request a user based on its id
+     *
+     * @param id ID of requested user
+     */
+    findById(id: number): Promise<User> {
+        return this.userRepo.findOne({ id });
+    }
+
+    /**
+     * Finds a user by credentials. If the credentials match, then
+     * return the user.
+     *
+     * @param username username of queried user
+     * @param pass plaintext password for user
+     */
+    public findByCredentials(username: string, pass: string): Promise<User> {
+        return new Promise<User>((resolve, reject) => {
+            this.userRepo.find({ username }).then(users => {
+                const user = users[0];
+                if (user.checkPassword(pass)) {
+                    resolve(user);
+                } else {
+                    reject('Passwords did not match');
+                }
+            }).catch(err => {
+                reject('User could not be found');
+            });
+        });
+    }
+}
