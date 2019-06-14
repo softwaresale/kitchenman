@@ -34,19 +34,28 @@ export class UserService {
      *
      * @param updateUser update user data transfer object
      */
-    async update(id: number, updateUser: UpdateUserDto): Promise<UpdateResult> {
+    async update(id: string, updateUser: UpdateUserDto): Promise<UpdateResult> {
         // TODO check that user is in database
         return this.userRepo.update({ id }, updateUser);
     }
 
     /**
-     * Deletes a certain user
+     * Deletes a certain user by id
      *
      * @param id User to delete
      */
-    async delete(id: number): Promise<DeleteResult> {
+    async deleteId(id: string): Promise<DeleteResult> {
         // TODO check that user is in database
         return this.userRepo.delete({ id });
+    }
+
+    /**
+     * Deletes a certain user based off of it's object
+     *
+     * @param user user object to delete
+     */
+    async deleteUser(user: User): Promise<DeleteResult> {
+        return this.deleteId(user.id);
     }
 
     /**
@@ -61,7 +70,7 @@ export class UserService {
      *
      * @param id ID of requested user
      */
-    async findById(id: number): Promise<User> {
+    async findById(id: string): Promise<User> {
         return this.userRepo.findOne({ id });
     }
 

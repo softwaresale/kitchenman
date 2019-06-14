@@ -31,7 +31,7 @@ export class UserController {
     @Put('me')
     @UseGuards(AuthGuard('jwt'))
     async updateUser(
-        @AuthUser('id') id: number,
+        @AuthUser('id') id: string,
         @Body() body: UpdateUserDto,
     ): Promise<UpdateResult> {
         return this.userService.update(id, body);
@@ -39,7 +39,7 @@ export class UserController {
 
     @Delete('me')
     @UseGuards(AuthGuard('jwt'))
-    async deleteUser(@AuthUser('id') id: number): Promise<DeleteResult> {
-        return this.userService.delete(id);
+    async deleteUser(@AuthUser() user: User): Promise<DeleteResult> {
+        return this.userService.deleteUser(user);
     }
 }
