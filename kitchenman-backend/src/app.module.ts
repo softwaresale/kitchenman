@@ -18,6 +18,7 @@ import { default as config } from '../km-config';
       database: 'kitchenman',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+      uuidExtension: 'pgcrypto',
     }),
     UserModule,
     RecipeModule,
