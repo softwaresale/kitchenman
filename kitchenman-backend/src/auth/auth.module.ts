@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from 'src/user/user.module';
 import { default as config } from '../../km-config';
+import { HttpStrategy } from './http.strategy';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { default as config } from '../../km-config';
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, HttpStrategy],
   exports: [PassportModule, AuthService],
 })
 export class AuthModule {}

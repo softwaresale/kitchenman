@@ -11,15 +11,15 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) { }
 
-  async signIn(username: string, password: string): Promise<string> {
-    return this.userService.findByCredentials(username, password).then(user => {
-      const payload: JwtPayload = {
-        id: user.id,
-      };
-      return this.jwtService.signAsync(payload);
-    }).catch(error => {
-      return error;
-    });
+  async genToken(user: User): Promise<string> {
+    const payload: JwtPayload = {
+      id: user.id,
+    };
+    return this.jwtService.signAsync(payload);
+  }
+
+  async signInUser(username: string, password: string): Promise<User> {
+    return this.userService.findByCredentials(username, password);
   }
 
   async validateUser(payload: JwtPayload): Promise<User> {
