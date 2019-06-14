@@ -5,6 +5,8 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatDividerModule,
+  MatGridListModule,
+  MatTabsModule,
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecipesMainComponent } from './recipes-main/recipes-main.component';
 import { PlansMainComponent } from './plans-main/plans-main.component';
 import { ListsMainComponent } from './lists-main/lists-main.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { ListsMainComponent } from './lists-main/lists-main.component';
     DashboardComponent,
     RecipesMainComponent,
     PlansMainComponent,
-    ListsMainComponent
+    ListsMainComponent,
+    ProfileViewComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,8 @@ import { ListsMainComponent } from './lists-main/lists-main.component';
     MatButtonModule,
     MatToolbarModule,
     MatDividerModule,
+    MatGridListModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

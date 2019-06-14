@@ -1,5 +1,5 @@
 
-<mat-toolbar>
+<mat-toolbar class="toolbar">
   <!-- Title -->
   <span id="title">Kitchenman</span>
 
@@ -24,7 +24,7 @@
     Otherwise, show the logged in button
    -->
   <ng-container *ngIf="loggedIn; else notLoggedIn">
-    <button mat-button>Profile</button>
+    <a mat-button routerLink="/profile">Profile</a>
   </ng-container>
   <ng-template #notLoggedIn>
     <button mat-button>Login</button>

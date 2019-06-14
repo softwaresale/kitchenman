@@ -1,0 +1,28 @@
+<div class="layout">
+  <div class="user-info-panel">
+    <div class="imagebox">
+      <!-- User profile image goes here -->
+    </div>
+    <mat-divider></mat-divider>
+    <h3 class="mat-subheading-2">{{ user.fullName }}</h3>
+    <h4 class="mat-subheading-1">{{ user.username }}</h4>
+    <h4 class="mat-subheading-1">{{ user.email }}</h4>
+    <button mat-button>Edit</button>
+  </div>
+  <div class="resource-panel">
+    <mat-tab-group>
+      <mat-tab label="Recipes">
+        <!-- Recipes Content -->
+        Recipes
+      </mat-tab>
+      <mat-tab label="Meal Plans">
+        <!-- Meal plan Content -->
+        Meal Plans
+      </mat-tab>
+      <mat-tab label="Shopping Lists">
+        <!-- List content -->
+        Shopping Lists Content
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
