@@ -18,7 +18,7 @@ export class UserService {
      *
      * @param createUser new user data transfer object
      */
-    create(createUser: CreateUserDto): Promise<InsertResult> {
+    async create(createUser: CreateUserDto): Promise<InsertResult> {
         const newUser = this.userRepo.create({
             username: createUser.username,
             email: createUser.email,
@@ -34,7 +34,7 @@ export class UserService {
      *
      * @param updateUser update user data transfer object
      */
-    update(id: number, updateUser: UpdateUserDto): Promise<UpdateResult> {
+    async update(id: number, updateUser: UpdateUserDto): Promise<UpdateResult> {
         // TODO check that user is in database
         return this.userRepo.update({ id }, updateUser);
     }
@@ -44,7 +44,7 @@ export class UserService {
      *
      * @param id User to delete
      */
-    delete(id: number): Promise<DeleteResult> {
+    async delete(id: number): Promise<DeleteResult> {
         // TODO check that user is in database
         return this.userRepo.delete({ id });
     }
@@ -52,7 +52,7 @@ export class UserService {
     /**
      * Get all user objects
      */
-    findAll(): Promise<User[]> {
+    async findAll(): Promise<User[]> {
         return this.userRepo.find();
     }
 
@@ -61,7 +61,7 @@ export class UserService {
      *
      * @param id ID of requested user
      */
-    findById(id: number): Promise<User> {
+    async findById(id: number): Promise<User> {
         return this.userRepo.findOne({ id });
     }
 
@@ -72,7 +72,7 @@ export class UserService {
      * @param username username of queried user
      * @param pass plaintext password for user
      */
-    public findByCredentials(username: string, pass: string): Promise<User> {
+    async findByCredentials(username: string, pass: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             this.userRepo.find({ username }).then(users => {
                 const user = users[0];
