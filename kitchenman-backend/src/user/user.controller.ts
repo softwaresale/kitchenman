@@ -1,8 +1,10 @@
-import { Controller, Get, Req, Param, Put, Body, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Param, Put, Body, Delete, ParseIntPipe, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthUser } from './auth-user.decorator';
+import { UpdateUserDto } from 'src/dto/user.dto';
 
 @Controller('users')
 export class UserController {
@@ -19,21 +21,25 @@ export class UserController {
     /*
         User creation is handled under the auth controller
      */
-    @Get(':id')
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('me')
     @UseGuards(AuthGuard('jwt'))
-    async findById(@Param('id', new ParseIntPipe()) id: number): Promise<User> {
-        return this.userService.findById(id);
+    async findById(@AuthUser() user: User): Promise<User> {
+        return user;
     }
 
-    @Put(':id')
-    async updateUser(@Param('id', new ParseIntPipe()) id: number, @Body() body): Promise<UpdateResult> {
+    @Put('me')
+    @UseGuards(AuthGuard('jwt'))
+    async updateUser(
+        @AuthUser('id') id: number,
+        @Body() body: UpdateUserDto,
+    ): Promise<UpdateResult> {
         return this.userService.update(id, body);
     }
 
-    @Delete(':id')
-    async deleteUser(@Param('id', new ParseIntPipe()) id: number): Promise<DeleteResult> {
+    @Delete('me')
+    @UseGuards(AuthGuard('jwt'))
+    async deleteUser(@AuthUser('id') id: number): Promise<DeleteResult> {
         return this.userService.delete(id);
     }
-
-    /* Need to add granular API routes here */
 }

@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Recipe } from 'src/recipe/recipe.entity';
+import { Exclude, Expose } from 'class-transformer';
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -20,12 +21,14 @@ export class User {
     email: string;
 
     @Column('text')
+    @Exclude()
     hash: string;
 
     @OneToMany(type => Recipe, recipe => recipe.author)
     recipes: Recipe[];
 
-    public get fullName(): string { return `${this.firstName} ${this.lastName}`; }
+    @Expose()
+    get fullName(): string { return `${this.firstName} ${this.lastName}`; }
 
     /*
         Set the password. This property converts the given password
