@@ -7,6 +7,7 @@ import {
   MatDividerModule,
   MatGridListModule,
   MatTabsModule,
+  MatCardModule,
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { RecipesMainComponent } from './recipes-main/recipes-main.component';
 import { PlansMainComponent } from './plans-main/plans-main.component';
 import { ListsMainComponent } from './lists-main/lists-main.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
     RecipesMainComponent,
     PlansMainComponent,
     ListsMainComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    RecipeCardComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
     MatDividerModule,
     MatGridListModule,
     MatTabsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

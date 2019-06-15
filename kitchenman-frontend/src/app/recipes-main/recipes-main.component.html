@@ -1,3 +1,9 @@
-<p>
-  recipes-main works!
-</p>
+
+<mat-grid-list cols="4" gutterSize="5">
+  <mat-grid-tile
+    *ngFor="let recipe of recipes"
+    [colspan]="1"
+    [rowspan]="1">
+    <app-recipe-card [recipe]='recipe'></app-recipe-card>
+  </mat-grid-tile>
+</mat-grid-list>
