@@ -1,17 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
-
-  loggedIn: boolean;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.loggedIn = true;
-  }
+export class AppComponent {
+  title = 'kitchenman-frontend';
 }

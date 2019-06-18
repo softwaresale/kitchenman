@@ -9,7 +9,8 @@ export interface Ingredient {
 export interface Recipe {
     name: string;
     author: string;
-    imageUri: string;
-    ingredients?: Ingredient[];
-    directions?: string[];
+    description?: string;
+    imgUri?: string;
+    ingredients?: Ingredient[]; // TODO make this required
+    directions?: string[]; // TODO make this required
 }
