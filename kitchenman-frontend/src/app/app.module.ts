@@ -12,6 +12,7 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
+import { DirectionListComponent } from './direction-list/direction-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RecipeViewComponent } from './recipe-view/recipe-view.component';
     IngredientListComponent,
     ProfileViewComponent,
     RecipeViewComponent,
+    DirectionListComponent,
   ],
   imports: [
     BrowserModule,

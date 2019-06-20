@@ -5,20 +5,9 @@
 @mixin ingredient-list-theme($theme)
     $primary: map-get($theme, primary)
     $accent: map-get($theme, accent)
-    .ingredient-item
-        background-color: #f5f5f5
-        border-radius: 15px
-        //padding: 2px
-        margin-bottom: 5px
     .ingredient-qty
-        background-color: mat-color($accent)
-        color: white
-        padding: 3px 5px 3px 5px
-        margin-right: 10px
-        border-radius: 10px
-    .ingredient-name
-        background-color: #f5f5f5
-        font-size: 18px
+        margin-right: 5px
+    
 
 $primary: mat-palette($mat-indigo)
 $accent: mat-palette($mat-pink, A200, A100, A400)

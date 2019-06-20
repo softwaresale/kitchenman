@@ -1,7 +1,17 @@
 
 <mat-list>
   <mat-list-item *ngFor="let ingredient of ingredients" class='ingredient-item'>
-    <span class='ingredient-qty mat-body-1'>{{ ingredient.qty }}</span>
-    <span class='ingredient-name mat-body-1'>{{ ingredient.name }}</span>
+    <h3 matLine class='mat-h3'>{{ ingredient.name }}</h3>
+    <div matLine class='ingredient-measures'>
+      <span class='ingredient-qty mat-body'>
+        {{ ingredient.qty }}
+      </span>
+      <span class='ingredient-unit mat-body-1'>
+        {{ ingredient.unit }}
+      </span>
+    </div>
+    <p matLine class='ingredient-description mat-body-1' *ngIf="ingredient.description">
+      {{ ingredient.description }}
+    </p>
   </mat-list-item>
 </mat-list>
