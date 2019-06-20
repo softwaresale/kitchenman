@@ -1,0 +1,25 @@
+
+<div fxLayout="column" fxLayoutAlign="center start" *ngIf="recipe$ | async; let recipe" class='page-container'>
+  <div class='title-box'>
+    <span id='title' class='mat-h1'>
+      {{ recipe.name }}
+    </span>
+    <span id='subtitle' class='mat-h2'>
+      {{ recipe.author }}
+    </span>
+  </div>
+  <!-- Image box goes here -->
+  <div class='ingredients-box'>
+    <h3 class='mat-h3'>Ingredients</h3>
+    <app-ingredient-list [ingredients]='recipe.ingredients'></app-ingredient-list>
+  </div>
+  <div class='directions-box'>
+    <h3 class='mat-h3'>Directions</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let rec of recipe.directions; let i=index" class='direction-item'>
+        <span class='idx-box'>{{ i }}</span>
+        <span class='direction-text-box'>{{ rec }}</span>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

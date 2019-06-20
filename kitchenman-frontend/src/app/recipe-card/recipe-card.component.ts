@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Recipe } from '../recipe';
 
 @Component({
@@ -10,9 +11,11 @@ export class RecipeCardComponent implements OnInit {
 
   @Input() recipe: Recipe;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  viewImage(id: string): void {
+  }
 }

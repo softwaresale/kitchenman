@@ -6,7 +6,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink='/recipes'>Recipes</a>
-      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item routerLink='/profile'>Profile</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -27,7 +27,7 @@
         [vertical]="true">
       </mat-divider>
       <a mat-button routerLink="/recipes">Recipes</a>
-
+      <a mat-button routerLink="/profile">Profile</a>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

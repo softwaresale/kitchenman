@@ -10,6 +10,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { RecipesDashComponent } from './recipes-dash/recipes-dash.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
     RecipesDashComponent,
     RecipeCardComponent,
     IngredientListComponent,
+    ProfileViewComponent,
+    RecipeViewComponent,
   ],
   imports: [
     BrowserModule,

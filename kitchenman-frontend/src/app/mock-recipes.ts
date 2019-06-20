@@ -3,6 +3,7 @@ import { Recipe, Ingredient } from './recipe';
 
 export const RECIPES: Recipe[] = [
     {
+        id: 0,
         name: 'Eggs and Bacon',
         author: 'Charlie Sale',
         ingredients: [
@@ -25,6 +26,7 @@ export const RECIPES: Recipe[] = [
         imgUri: 'assets/bacon_and_eggs.jpeg',
     },
     {
+        id: 1,
         name: 'Cereal',
         author: 'John Smith',
         ingredients: [
@@ -46,5 +48,5 @@ export const RECIPES: Recipe[] = [
             'Serve',
         ],
         imgUri: 'assets/cereal.jpg',
-    }
+    },
 ];
