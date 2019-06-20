@@ -15,11 +15,6 @@
   </div>
   <div class='directions-box'>
     <h3 class='mat-h3'>Directions</h3>
-    <mat-list>
-      <mat-list-item *ngFor="let rec of recipe.directions; let i=index" class='direction-item'>
-        <span class='idx-box'>{{ i }}</span>
-        <span class='direction-text-box'>{{ rec }}</span>
-      </mat-list-item>
-    </mat-list>
+    <app-direction-list [directions]='recipe.directions'></app-direction-list>
   </div>
 </div>
