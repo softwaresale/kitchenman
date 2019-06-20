@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../user';
+import { UserService } from '../user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-view',
@@ -8,17 +10,12 @@ import { User } from '../user';
 })
 export class ProfileViewComponent implements OnInit {
 
-  @Input() user: User;
+  user$: Observable<User>;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user = {
-      id: '9729837450928374095',
-      username: 'softwaresale',
-      fullName: 'Charlie Sale',
-      email: 'chucks.8090@gmail.com',
-    };
+    this.user$ = this.userService.getById(0);
   }
 
 }

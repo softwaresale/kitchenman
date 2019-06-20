@@ -13,6 +13,7 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { DirectionListComponent } from './direction-list/direction-list.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DirectionListComponent } from './direction-list/direction-list.componen
     ProfileViewComponent,
     RecipeViewComponent,
     DirectionListComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,

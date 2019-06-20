@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { RECIPES } from '../mock-recipes';
 import { Recipe } from '../recipe';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipes-dash',
   templateUrl: './recipes-dash.component.html',
   styleUrls: ['./recipes-dash.component.css']
 })
-export class RecipesDashComponent {
+export class RecipesDashComponent implements OnInit {
 
-  recipes: Recipe[] = RECIPES;
+  recipes: Recipe[];
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -30,5 +30,15 @@ export class RecipesDashComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private recipeService: RecipeService,
+  ) {}
+
+  ngOnInit(): void {
+    this.recipeService.getAll().subscribe({
+      next: (recipes: Recipe[]) => { this.recipes = recipes; },
+      error: (err: any) => { console.log(err); }
+    });
+  }
 }

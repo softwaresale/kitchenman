@@ -1,5 +1,6 @@
 
 import { Recipe, Ingredient } from './recipe';
+import { User } from './user';
 
 export const RECIPES: Recipe[] = [
     {
@@ -48,5 +49,24 @@ export const RECIPES: Recipe[] = [
             'Serve',
         ],
         imgUri: 'assets/cereal.jpg',
+    },
+];
+
+export const USERS: User[] = [
+    {
+        id: 0,
+        firstName: 'Charlie',
+        lastName: 'Sale',
+        fullName: 'Charlie Sale',
+        email: 'softwaresale01@gmail.com',
+        username: 'softwaresale'
+    },
+    {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Smith',
+        fullName: 'John Smith',
+        email: 'john.smith@example.com',
+        username: 'johnsmith'
     },
 ];
