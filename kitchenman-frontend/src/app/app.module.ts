@@ -14,6 +14,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { DirectionListComponent } from './direction-list/direction-list.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
     RecipeViewComponent,
     DirectionListComponent,
     ProfileEditComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

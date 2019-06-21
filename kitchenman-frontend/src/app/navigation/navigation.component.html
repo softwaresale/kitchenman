@@ -5,9 +5,9 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <a mat-list-item routerLink='/home'>Home</a>
       <a mat-list-item routerLink='/recipes'>Recipes</a>
       <a mat-list-item routerLink='/profile'>Profile</a>
-      <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -21,7 +21,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
-      <span>Kitchenman</span>
+      <a class='title-link' routerLink='/home'><span>Kitchenman</span></a>
       <mat-divider
         [inset]="true"
         [vertical]="true">
