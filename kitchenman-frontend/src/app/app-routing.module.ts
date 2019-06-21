@@ -8,7 +8,9 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   { path: 'recipes', component: RecipesDashComponent },
   { path: 'recipes/:id', component: RecipeViewComponent },
+  { path: 'recipes/edit/:id', component: RecipeEditComponent },
   { path: 'profile', component: ProfileViewComponent },
+  { path: 'profile/edit', component: ProfileEditComponet },
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];
