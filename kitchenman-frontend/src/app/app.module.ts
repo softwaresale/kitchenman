@@ -15,6 +15,8 @@ import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { DirectionListComponent } from './direction-list/direction-list.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { HomeComponent } from './home/home.component';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,11 @@ import { HomeComponent } from './home/home.component';
     DirectionListComponent,
     ProfileEditComponent,
     HomeComponent,
+    RecipeEditComponent,
   ],
   imports: [
     BrowserModule,
+    FlexLayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
