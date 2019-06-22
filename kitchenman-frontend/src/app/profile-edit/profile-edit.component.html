@@ -1,6 +1,25 @@
 
-<div fxLayout="column" fxLayoutAlign="center start" class='layout'>
-  <div class='personal-info'>
-    
-  </div>
+<div class='layout'>
+  <form [formGroup]='userForm' fxLayout="column" fxLayoutAlign="start start" class='user-edit-form'>
+    <h3 class='mat-h3'>Edit Profile</h3>
+    <mat-form-field class='user-edit-field'>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" formControlName='firstName' placeholder="{{ user.firstName }}">
+    </mat-form-field>
+    <mat-form-field class='user-edit-field'>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName='lastName' placeholder="{{user.lastName}}">
+    </mat-form-field>
+    <mat-form-field class='user-edit-field'>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName='email' placeholder="{{user.email}}">
+    </mat-form-field>
+    <mat-form-field class='user-edit-field'>
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName='username' placeholder="{{user.username}}">
+    </mat-form-field>
+    <div class='button-box'>
+      <button mat-button type="submit">Save</button>
+    </div>
+  </form>
 </div>

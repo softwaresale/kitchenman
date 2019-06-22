@@ -1,12 +1,16 @@
 
-<div fxLayout="column" fxLayoutAlign="start center">
-  <form [formGroup]='recipeForm'>
-    <label>
-      Name:
-      <input type="text" formControlName='name'>
-    </label>
-    <label>
-      
-    </label>
+<div class='form-container'>
+  <form [formGroup]='recipeForm' fxLayout='column' fxLayoutAlign='start start'>
+    <h2 class='mat-h2'>Edit Recipe</h2>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput  type='text' placeholder="{{recipe.name}}" formControlName='name'>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Author</mat-label>
+      <input matInput type='text' placeholder="{{recipe.author}}" formControlName='author'>
+    </mat-form-field>
+    <!-- TODO: need components editing directions and ingredients -->
+    <button mat-button type="submit">Save</button>
   </form>
 </div>

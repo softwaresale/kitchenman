@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { 
+  MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
+  MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatInputModule 
+} from '@angular/material';
 import { RecipesDashComponent } from './recipes-dash/recipes-dash.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
@@ -46,7 +49,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
