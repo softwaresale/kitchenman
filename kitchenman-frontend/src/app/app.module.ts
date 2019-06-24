@@ -8,7 +8,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { 
   MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
-  MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatInputModule 
+  MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatInputModule, MatFormFieldModule 
 } from '@angular/material';
 import { RecipesDashComponent } from './recipes-dash/recipes-dash.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
@@ -20,6 +20,9 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { HomeComponent } from './home/home.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { IngredientEditComponent } from './ingredient-edit/ingredient-edit.component';
+import { DirectionEditComponent } from './direction-edit/direction-edit.component';
+import { IngredientInputComponent } from './ingredient-input/ingredient-input.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ProfileEditComponent,
     HomeComponent,
     RecipeEditComponent,
+    IngredientEditComponent,
+    DirectionEditComponent,
+    IngredientInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +57,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatMenuModule,
     MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

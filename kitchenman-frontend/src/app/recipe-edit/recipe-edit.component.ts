@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe';
+import { Recipe, Ingredient } from '../recipe';
 import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +15,7 @@ export class RecipeEditComponent implements OnInit {
 
   recipe: Recipe;
   recipeForm: FormGroup;
+  updatedIngredients$: Observable<Ingredient[]>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,6 +39,11 @@ export class RecipeEditComponent implements OnInit {
       author: new FormControl(this.recipe.author),
       ingredients: new FormControl(this.recipe.ingredients),
       directions: new FormControl(this.recipe.directions),
+    });
+
+    this.updatedIngredients$.subscribe({
+      next: (ingredients: Ingredient[]) => this.recipeForm.setValue({ingredients}),
+      error: (err: any) => console.error(err),
     });
   }
 
