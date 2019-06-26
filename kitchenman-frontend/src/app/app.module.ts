@@ -20,7 +20,6 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { HomeComponent } from './home/home.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { IngredientEditComponent } from './ingredient-edit/ingredient-edit.component';
 import { DirectionEditComponent } from './direction-edit/direction-edit.component';
 import { IngredientInputComponent } from './ingredient-input/ingredient-input.component';
 
@@ -37,7 +36,6 @@ import { IngredientInputComponent } from './ingredient-input/ingredient-input.co
     ProfileEditComponent,
     HomeComponent,
     RecipeEditComponent,
-    IngredientEditComponent,
     DirectionEditComponent,
     IngredientInputComponent,
   ],

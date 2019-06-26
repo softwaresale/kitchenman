@@ -15,7 +15,6 @@ export class RecipeEditComponent implements OnInit {
 
   recipe: Recipe;
   recipeForm: FormGroup;
-  updatedIngredients$: Observable<Ingredient[]>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -39,11 +38,6 @@ export class RecipeEditComponent implements OnInit {
       author: new FormControl(this.recipe.author),
       ingredients: new FormControl(this.recipe.ingredients),
       directions: new FormControl(this.recipe.directions),
-    });
-
-    this.updatedIngredients$.subscribe({
-      next: (ingredients: Ingredient[]) => this.recipeForm.setValue({ingredients}),
-      error: (err: any) => console.error(err),
     });
   }
 
