@@ -13,6 +13,7 @@ export class UserController {
         private readonly userService: UserService,
     ) { }
 
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get()
     async findAll(): Promise<User[]> {
         return this.userService.findAll();

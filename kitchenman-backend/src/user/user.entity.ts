@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Recipe } from 'src/recipe/recipe.entity';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -24,6 +24,7 @@ export class User {
     @Exclude()
     hash: string;
 
+    @Expose()
     @OneToMany(type => Recipe, recipe => recipe.author)
     recipes: Recipe[];
 

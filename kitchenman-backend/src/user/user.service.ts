@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto, UpdateUserDto } from 'src/dto/user.dto';
-import { Recipe } from 'src/recipe/recipe.entity';
 
 @Injectable()
 export class UserService {
@@ -62,7 +61,7 @@ export class UserService {
      * Get all user objects
      */
     async findAll(): Promise<User[]> {
-        return this.userRepo.find();
+        return this.userRepo.find({ relations: ['recipes'] });
     }
 
     /**
@@ -71,7 +70,7 @@ export class UserService {
      * @param id ID of requested user
      */
     async findById(id: string): Promise<User> {
-        return this.userRepo.findOne({ id });
+        return this.userRepo.findOne({ id }, { relations: ['recipes'] });
     }
 
     /**
@@ -83,7 +82,7 @@ export class UserService {
      */
     async findByCredentials(username: string, pass: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
-            this.userRepo.find({ username }).then(users => {
+            this.userRepo.find({ where: { username }, relations: ['recipes']}).then(users => {
                 const user = users[0];
                 if (user.checkPassword(pass)) {
                     resolve(user);
