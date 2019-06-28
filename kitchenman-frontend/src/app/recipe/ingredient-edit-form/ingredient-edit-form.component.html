@@ -1,0 +1,30 @@
+
+<form [formGroup]='newIngredientForm' (ngSubmit)='onSubmit()'>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type='text' formControlName="name">
+        <mat-hint>Name of the ingredient</mat-hint>
+        <mat-error *ngIf="newIngredientForm.controls['name'].invalid">
+            Name is required
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Qty</mat-label>
+        <input matInput type='number' formControlName="qty">
+        <mat-hint>How much of the ingredient</mat-hint>
+        <mat-error *ngIf="newIngredientForm.controls['qty'].invalid">
+            Qty is required and must be numeric
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Unit</mat-label>
+        <input matInput type='text' formControlName="unit">
+        <mat-hint>The unit of the qty (e.g cups, oz)</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput type='text' formControlName="description">
+        <mat-hint>About the ingredient</mat-hint>
+    </mat-form-field>
+    <button mat-button [disabled]="newIngredientForm.invalid" type="submit">Add</button>
+</form>

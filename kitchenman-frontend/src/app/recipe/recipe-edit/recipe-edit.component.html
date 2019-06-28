@@ -10,7 +10,8 @@
       <mat-label>Author</mat-label>
       <input matInput type='text' placeholder="{{recipe.author}}" formControlName='author'>
     </mat-form-field>
-    <!-- TODO: need components editing directions and ingredients -->
+    <app-ingredient-list [ingredients]="recipe.ingredients"></app-ingredient-list>
+    <app-ingredient-edit-form (ingredient)='addIngredient($event)'></app-ingredient-edit-form>
     <button mat-button type="submit">Save</button>
   </form>
 </div>

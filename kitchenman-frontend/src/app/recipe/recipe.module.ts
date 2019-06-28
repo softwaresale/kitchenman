@@ -9,6 +9,8 @@ import { DirectionListComponent } from './direction-list/direction-list.componen
 import { MaterialModule } from '../material.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { IngredientEditFormComponent } from './ingredient-edit-form/ingredient-edit-form.component';
+import { IngredientListEditComponent } from './ingredient-list-edit/ingredient-list-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecipeEditComponent,
     IngredientListComponent,
     DirectionListComponent,
+    IngredientEditFormComponent,
+    IngredientListEditComponent,
   ],
   imports: [
     CommonModule,
