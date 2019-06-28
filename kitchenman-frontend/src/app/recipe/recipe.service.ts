@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RECIPES } from './mock-data';
+import { RECIPES } from '../mock-data';
 import { Observable, of, from } from 'rxjs';
-import { Recipe } from './recipe';
+import { Recipe } from '../recipe';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeService {
 

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { Component, OnInit, forwardRef } from '@angular/core';
+import { User } from '../../user';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.sass']
+  styleUrls: ['./profile-edit.component.sass'],
 })
 export class ProfileEditComponent implements OnInit {
 

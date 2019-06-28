@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe';
+import { Recipe } from '../../recipe';
 import { switchMap } from 'rxjs/operators';
 
 @Component({

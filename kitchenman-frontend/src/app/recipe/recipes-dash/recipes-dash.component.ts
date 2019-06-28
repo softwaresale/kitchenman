@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Recipe } from '../recipe';
+import { Recipe } from '../../recipe';
 import { RecipeService } from '../recipe.service';
 
 @Component({

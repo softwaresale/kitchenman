@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Recipe } from '../recipe';
+import { Recipe } from '../../recipe';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { RECIPES } from '../mock-data';
+import { RECIPES } from '../../mock-data';
 import { RecipeService } from '../recipe.service';
 
 @Component({

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipesDashComponent } from './recipes-dash/recipes-dash.component';
-import { ProfileViewComponent } from './profile-view/profile-view.component';
-import { RecipeViewComponent } from './recipe-view/recipe-view.component';
-import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
-import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { RecipesDashComponent } from './recipe/recipes-dash/recipes-dash.component';
+import { ProfileViewComponent } from './profile/profile-view/profile-view.component';
+import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
+import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
