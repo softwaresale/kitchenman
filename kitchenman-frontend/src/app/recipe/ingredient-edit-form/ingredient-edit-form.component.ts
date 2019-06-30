@@ -1,44 +1,144 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, HostBinding, Optional, Self, EventEmitter, Output } from '@angular/core';
 import { Ingredient } from 'src/app/recipe';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgControl, ControlValueAccessor } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ingredient-edit-form',
   templateUrl: './ingredient-edit-form.component.html',
-  styleUrls: ['./ingredient-edit-form.component.sass']
+  styleUrls: ['./ingredient-edit-form.component.sass'],
+  providers: [{ provide: MatFormFieldControl, useExisting: IngredientEditFormComponent }],
 })
-export class IngredientEditFormComponent implements OnInit {
+export class IngredientEditFormComponent
+  implements OnInit, OnDestroy, MatFormFieldControl<Ingredient>, ControlValueAccessor {
 
-  @Input() placeholder: Ingredient;
-  @Output() ingredient: EventEmitter<Ingredient>;
+  static nextId = 0;
+
+  @Input()
+  get value(): Ingredient | null {
+    if (this.newIngredientForm.valid) {
+      return this.newIngredientForm.value as Ingredient;
+    } else {
+      return null;
+    }
+  }
+  set value(ingredient: Ingredient | null) {
+    // TODO: method to make an empty ingredient?
+    ingredient = ingredient || {name: '', qty: 0, unit: '', description: ''};
+    this.newIngredientForm.setValue({
+      name: ingredient.name,
+      qty: ingredient.qty,
+      unit: ingredient.unit,
+      description: ingredient.description
+    });
+
+    this.stateChanges.next();
+  }
+
+  stateChanges: Subject<void>;
+  @HostBinding() get id(): string { return `app-ingredient-input-${IngredientEditFormComponent.nextId++}`; }
+// tslint:disable-next-line: variable-name
+  private _placeholder: string;
+  @Input() get placeholder(): string {
+    return this._placeholder;
+  }
+  set placeholder(str: string) {
+    this._placeholder = str;
+    this.stateChanges.next();
+  }
+
+  focused: boolean;
+  get empty(): boolean {
+    const ingredient: Ingredient = this.newIngredientForm.value;
+    return !ingredient.name && !ingredient.qty && !ingredient.unit && !ingredient.description;
+  }
+
+  shouldLabelFloat: boolean;
+
+// tslint:disable-next-line: variable-name
+  private _required: boolean;
+  get required(): boolean {
+    return this._required;
+  }
+  set required(val: boolean) {
+    this._required = val;
+    this.stateChanges.next();
+  }
+
+  get disabled(): boolean {
+    return this.newIngredientForm.disabled;
+  }
+  set disabled(val: boolean) {
+    if (val) {
+      this.newIngredientForm.disable();
+    } else {
+      this.newIngredientForm.enable();
+    }
+    this.stateChanges.next();
+  }
+
+  get errorState(): boolean {
+    return !this.newIngredientForm.errors;
+  }
+
+  controlType = 'app-ingredient-input';
   newIngredientForm: FormGroup;
+  @Output() addedIngredient: EventEmitter<Ingredient>;
 
-  constructor(private fb: FormBuilder) {
-    this.ingredient = new EventEmitter<Ingredient>();
-    // create object of initial values
-    // TODO create a better way to do default values with optionals or something
-    const ivals = {
-      name: this.placeholder.name || '',
-      qty: this.placeholder.qty || 0,
-      unit: this.placeholder.unit || '',
-      description: this.placeholder.description || '',
-    };
+  constructor(
+    private fb: FormBuilder,
+    @Optional() @Self() public ngControl: NgControl,
+  ) {
+    this.stateChanges = new Subject<void>();
+    this.addedIngredient = new EventEmitter<Ingredient>();
 
     // Create the new ingredient form
     this.newIngredientForm = this.fb.group({
-      name: [ivals.name, [Validators.required]],
-      qty: [ivals.qty, [Validators.pattern('^(([1-9]*)|(([1-9]*)\.([0-9]*)))$'), Validators.required]],
-      unit: [ivals.unit],
-      description: [ivals.description],
+      name: ['', [Validators.required]],
+      qty: [0, [Validators.pattern('^(([1-9]*)|(([1-9]*)\.([0-9]*)))$'), Validators.required]],
+      unit: ['', [Validators.required]],
+      description: [''],
     });
+
+    if (this.ngControl !== null) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
   ngOnInit() {
   }
 
+  ngOnDestroy(): void {
+    this.stateChanges.complete();
+  }
+
+  setDescribedByIds(ids: string[]): void {
+  }
+  onContainerClick(event: MouseEvent): void {
+  }
+
   onSubmit(): void {
     const newIngredient = this.newIngredientForm.value;
-    this.ingredient.emit(newIngredient);
+    this.addedIngredient.emit(newIngredient);
     this.newIngredientForm.reset();
+  }
+
+  writeValue(obj: any): void {
+    this.value = obj;
+    this.stateChanges.next();
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.newIngredientForm.disable();
+    } else {
+      this.newIngredientForm.enable();
+    }
   }
 }

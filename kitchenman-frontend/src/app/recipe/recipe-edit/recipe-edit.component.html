@@ -1,17 +1,16 @@
 
 <div class='form-container'>
-  <form [formGroup]='recipeForm' fxLayout='column' fxLayoutAlign='start start'>
+  <form [formGroup]='recipeForm' fxLayout='column' fxLayoutAlign='start start' (ngSubmit)='onSubmit()'>
     <h2 class='mat-h2'>Edit Recipe</h2>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput  type='text' placeholder="{{recipe.name}}" formControlName='name'>
+      <input matInput  type='text' placeholder="{{recipe.name}}" formControlName="name">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Author</mat-label>
-      <input matInput type='text' placeholder="{{recipe.author}}" formControlName='author'>
+      <input matInput type='text' placeholder="{{recipe.author}}" formControlName="author">
     </mat-form-field>
-    <app-ingredient-list [ingredients]="recipe.ingredients"></app-ingredient-list>
-    <app-ingredient-edit-form (ingredient)='addIngredient($event)'></app-ingredient-edit-form>
+    <app-ingredient-list-edit formControlName="ingredients"></app-ingredient-list-edit>
     <button mat-button type="submit">Save</button>
   </form>
 </div>
