@@ -1,10 +1,10 @@
-import { Controller, Get, Req, Param, Put, Body, Delete, ParseIntPipe, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
-import { UserService } from './user.service';
-import { User } from './user.entity';
-import { UpdateResult, DeleteResult } from 'typeorm';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Put, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateUserDto } from '../dto/user-update.dto';
 import { AuthUser } from './auth-user.decorator';
-import { UpdateUserDto } from 'src/dto/user.dto';
+import { User } from './user.entity';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
@@ -33,7 +33,7 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     async updateUser(
         @AuthUser('id') id: string,
-        @Body() body: UpdateUserDto,
+        @Body(new ValidationPipe()) body: UpdateUserDto,
     ): Promise<UpdateResult> {
         return this.userService.update(id, body);
     }

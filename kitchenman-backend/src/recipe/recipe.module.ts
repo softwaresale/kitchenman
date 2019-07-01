@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { RecipeService } from './recipe.service';
-import { RecipeController } from './recipe.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from '../user/user.module';
+import { RecipeController } from './recipe.controller';
 import { Recipe } from './recipe.entity';
-import { UserModule } from 'src/user/user.module';
+import { RecipeService } from './recipe.service';
 
 @Module({
   imports: [

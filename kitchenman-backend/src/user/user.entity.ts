@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Recipe } from 'src/recipe/recipe.entity';
-import { Exclude, Expose, Transform } from 'class-transformer';
 import * as bcrypt from 'bcrypt';
+import { Exclude, Expose } from 'class-transformer';
+import { Recipe } from '../recipe/recipe.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {

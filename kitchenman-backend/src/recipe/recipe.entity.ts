@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from 'src/user/user.entity';
-import { Ingredient } from 'src/interfaces/ingredient.interface';
-import { Transform, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
+import { Ingredient } from '../interfaces/ingredient.interface';
+import { User } from '../user/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Recipe {

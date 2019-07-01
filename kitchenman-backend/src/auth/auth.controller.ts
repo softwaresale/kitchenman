@@ -1,11 +1,10 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/dto/user.dto';
-import { UserService } from 'src/user/user.service';
-import { InsertResult, ObjectLiteral } from 'typeorm';
+import { Body, Controller, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthUser } from 'src/user/auth-user.decorator';
-import { User } from 'src/user/user.entity';
+import { CreateUserDto } from '../dto/user-create.dto';
+import { AuthUser } from '../user/auth-user.decorator';
+import { User } from '../user/user.entity';
+import { UserService } from '../user/user.service';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
@@ -22,7 +21,7 @@ export class AuthController {
     }
 
     @Post('signup')
-    async signup(@Body() createUserDto: CreateUserDto): Promise<string> {
+    async signup(@Body(new ValidationPipe()) createUserDto: CreateUserDto): Promise<string> {
         const result = await this.userService.create(createUserDto);
         const user = await this.userService.findById(result.generatedMaps[0].id);
         return this.authService.genToken(user);

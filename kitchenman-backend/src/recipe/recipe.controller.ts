@@ -1,11 +1,12 @@
-import { Controller, UseInterceptors, ClassSerializerInterceptor, UseGuards, Get, Param, Post, Body, Put } from '@nestjs/common';
-import { RecipeService } from './recipe.service';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Put, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthUser } from 'src/user/auth-user.decorator';
-import { User } from 'src/user/user.entity';
-import { Recipe } from './recipe.entity';
-import { RecipeCreateDto, RecipeUpdateDto } from 'src/dto/recipe.dto';
+import { RecipeCreateDto } from '../dto/recipe-create.dto';
+import { RecipeUpdateDto } from '../dto/recipe-update.dto';
+import { AuthUser } from '../user/auth-user.decorator';
+import { User } from '../user/user.entity';
 import { InsertResult, UpdateResult } from 'typeorm';
+import { Recipe } from './recipe.entity';
+import { RecipeService } from './recipe.service';
 
 @Controller('recipe')
 export class RecipeController {
@@ -25,7 +26,7 @@ export class RecipeController {
     @Post('/')
     async create(
         @AuthUser() author: User,
-        @Body() createRecipe: RecipeCreateDto,
+        @Body(new ValidationPipe()) createRecipe: RecipeCreateDto,
     ): Promise<InsertResult> {
         return this.recipeService.create(author, createRecipe);
     }
