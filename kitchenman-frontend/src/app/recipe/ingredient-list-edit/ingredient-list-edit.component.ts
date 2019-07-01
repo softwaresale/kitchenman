@@ -104,8 +104,10 @@ export class IngredientListEditComponent implements OnInit, OnDestroy, MatFormFi
   }
 
   writeValue(objs: any[]): void {
-    this.value = objs;
-    this.stateChanges.next();
+    if (this.newList) {
+      this.value = objs;
+      this.stateChanges.next();
+    }
   }
 
   registerOnChange(fn: any): void {

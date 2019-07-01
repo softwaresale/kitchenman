@@ -47,7 +47,7 @@ export class IngredientEditFormComponent
   }
 
   stateChanges: Subject<void>;
-  @HostBinding() get id(): string { return `app-ingredient-input-${IngredientEditFormComponent.nextId++}`; }
+  @HostBinding() id = `app-ingredient-input-${IngredientEditFormComponent.nextId++}`;
 // tslint:disable-next-line: variable-name
   private _placeholder: string;
   @Input() get placeholder(): string {
