@@ -39,7 +39,7 @@ export class RecipeEditComponent implements OnInit {
     this.recipeForm = this.fb.group({
       name: [this.recipe.name, [Validators.required]],
       author: [this.recipe.author, [Validators.required]],
-      ingredients: [this.recipe.ingredients],
+      ingredient: [this.recipe.ingredients[0]],
     });
   }
 

@@ -9,11 +9,21 @@ import { Subject } from 'rxjs';
   templateUrl: './ingredient-edit-form.component.html',
   styleUrls: ['./ingredient-edit-form.component.sass'],
   providers: [{ provide: MatFormFieldControl, useExisting: IngredientEditFormComponent }],
+  // ! This is a temporary work around just to test something. This will get fixed Later
+// tslint:disable-next-line: no-host-metadata-property
+  host: {
+    '(change)': '_onChange($event.target.value)',
+    '(blur)': '_onTouched()',
+  },
 })
 export class IngredientEditFormComponent
   implements OnInit, OnDestroy, MatFormFieldControl<Ingredient>, ControlValueAccessor {
 
   static nextId = 0;
+// tslint:disable-next-line: variable-name
+  private _onChange: (_: any) => void;
+// tslint:disable-next-line: variable-name
+  private _onTouched: (_: any) => void;
 
   @Input()
   get value(): Ingredient | null {
@@ -30,7 +40,7 @@ export class IngredientEditFormComponent
       name: ingredient.name,
       qty: ingredient.qty,
       unit: ingredient.unit,
-      description: ingredient.description
+      description: ingredient.description || ''
     });
 
     this.stateChanges.next();
@@ -128,11 +138,11 @@ export class IngredientEditFormComponent
     this.value = obj;
     this.stateChanges.next();
   }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnChange(fn: (_: any) => void): void {
+    this._onChange = fn;
   }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnTouched(fn: (_: any) => void): void {
+    this._onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
