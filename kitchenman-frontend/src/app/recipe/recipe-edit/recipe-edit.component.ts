@@ -44,6 +44,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.recipeForm.updateValueAndValidity(); // try to reupdate
     console.log('Form submitted');
     console.log(this.recipeForm.value);
   }

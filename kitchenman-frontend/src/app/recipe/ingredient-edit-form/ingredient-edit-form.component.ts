@@ -31,9 +31,8 @@ export class IngredientEditFormComponent
   get value(): Ingredient | null {
     if (this.newIngredientForm.valid) {
       const ingredient: Ingredient = this.newIngredientForm.value;
-      if (this.newIngredientForm.get('description').value) {
-        ingredient.description = this.newIngredientForm.get('description').value;
-      }
+      console.log('***calling get***');
+      console.log(ingredient);
       return ingredient;
     } else {
       return null;
@@ -46,7 +45,7 @@ export class IngredientEditFormComponent
       name: ingredient.name,
       qty: ingredient.qty,
       unit: ingredient.unit,
-      description: ingredient.description || ''
+      description: ingredient.description,
     });
 
     this.stateChanges.next();
@@ -100,6 +99,7 @@ export class IngredientEditFormComponent
 
   controlType = 'app-ingredient-input';
   newIngredientForm: FormGroup;
+  @Input() hideHints = false;
   @Output() addedIngredient: EventEmitter<Ingredient>;
 
   constructor(
@@ -142,7 +142,7 @@ export class IngredientEditFormComponent
     this.newIngredientForm.reset();
   }
 
-  writeValue(obj: any): void {
+  writeValue(obj: Ingredient): void {
     this.value = obj;
     this.stateChanges.next();
   }

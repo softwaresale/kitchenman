@@ -12,11 +12,13 @@ export const RECIPES: Recipe[] = [
                 name: 'Bacon',
                 unit: 'Slice',
                 qty: 3,
+                description: '',
             },
             {
                 name: 'Eggs',
                 unit: 'egg',
                 qty: 2,
+                description: '',
             }
         ],
         directions: [
@@ -41,6 +43,7 @@ export const RECIPES: Recipe[] = [
                 name: 'Milk',
                 unit: 'cup',
                 qty: 1,
+                description: '',
             }
         ],
         directions: [

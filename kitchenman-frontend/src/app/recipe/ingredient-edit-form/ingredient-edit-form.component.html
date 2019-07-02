@@ -1,5 +1,5 @@
 
-<form [formGroup]='newIngredientForm' (ngSubmit)='onSubmit()'>
+<form [formGroup]='newIngredientForm' (ngSubmit)='onSubmit()' fxLayout="row">
     <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput type='text' formControlName="name">
