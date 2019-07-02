@@ -1,0 +1,11 @@
+
+version: "3"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: rxcE3RGw9c
+      POSTGRES_USER: kitchenman-user
+      POSTGRES_DB: kitchenman
+    
