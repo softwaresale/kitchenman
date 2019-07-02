@@ -1,11 +1,29 @@
 
 version: "3"
 services:
-  postgres:
+  db:
     image: postgres
-    restart: always
+    ports:
+      - "5432:5432"
     environment: 
       POSTGRES_PASSWORD: rxcE3RGw9c
       POSTGRES_USER: kitchenman-user
       POSTGRES_DB: kitchenman
-    
+  api:
+    image: softwaresale/kitchenman:api
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+    links:
+      - "db:database"
+networks:
+  default:
+    external:
+      name: kitchenman-net
