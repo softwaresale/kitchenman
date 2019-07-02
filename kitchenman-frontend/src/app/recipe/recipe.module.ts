@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IngredientEditFormComponent } from './ingredient-edit-form/ingredient-edit-form.component';
 import { IngredientListEditComponent } from './ingredient-list-edit/ingredient-list-edit.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { IngredientListEditComponent } from './ingredient-list-edit/ingredient-l
     AppRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    FlexLayoutModule,
   ],
   providers: [
   ],

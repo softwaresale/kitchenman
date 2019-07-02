@@ -11,10 +11,12 @@ import { Subject } from 'rxjs';
   providers: [{ provide: MatFormFieldControl, useExisting: IngredientEditFormComponent }],
   // ! This is a temporary work around just to test something. This will get fixed Later
 // tslint:disable-next-line: no-host-metadata-property
+/*
   host: {
     '(change)': '_onChange($event.target.value)',
     '(blur)': '_onTouched()',
   },
+*/
 })
 export class IngredientEditFormComponent
   implements OnInit, OnDestroy, MatFormFieldControl<Ingredient>, ControlValueAccessor {
@@ -28,7 +30,11 @@ export class IngredientEditFormComponent
   @Input()
   get value(): Ingredient | null {
     if (this.newIngredientForm.valid) {
-      return this.newIngredientForm.value as Ingredient;
+      const ingredient: Ingredient = this.newIngredientForm.value;
+      if (this.newIngredientForm.get('description').value) {
+        ingredient.description = this.newIngredientForm.get('description').value;
+      }
+      return ingredient;
     } else {
       return null;
     }
@@ -130,6 +136,8 @@ export class IngredientEditFormComponent
 
   onSubmit(): void {
     const newIngredient = this.newIngredientForm.value;
+    console.log('new ingredient submitted:');
+    console.log(newIngredient);
     this.addedIngredient.emit(newIngredient);
     this.newIngredientForm.reset();
   }
