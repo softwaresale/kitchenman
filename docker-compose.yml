@@ -5,7 +5,7 @@ services:
     image: postgres
     ports:
       - "5432:5432"
-    environment: 
+    environment:
       POSTGRES_PASSWORD: rxcE3RGw9c
       POSTGRES_USER: kitchenman-user
       POSTGRES_DB: kitchenman
@@ -23,7 +23,3 @@ services:
           memory: 50M
     links:
       - "db:database"
-networks:
-  default:
-    external:
-      name: kitchenman-net
