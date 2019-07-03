@@ -1,0 +1,68 @@
+
+<table mat-table #table [dataSource]="ingredientsData">
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let ingredient">
+            <mat-form-field>
+                <input matInput type="text" value="{{ingredient.name}}">
+            </mat-form-field>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+            <mat-form-field>
+                <input matInput type="text">
+            </mat-form-field>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qty">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let ingredient">
+            <mat-form-field>
+                <input matInput type="number" value="{{ingredient.qty}}">
+            </mat-form-field>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+            <mat-form-field>
+                <input matInput type="number">
+            </mat-form-field>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef> Unit </th>
+        <td mat-cell *matCellDef="let ingredient">
+            <mat-form-field>
+                <input matInput type="text" value="{{ingredient.unit}}">
+            </mat-form-field>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+            <mat-form-field>
+                <input matInput type="text">
+            </mat-form-field>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let ingredient">
+            <mat-form-field>
+                <input matInput type="text" value="{{ingredient.description}}">
+            </mat-form-field>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+            <div class='footer-description-box'>
+                <mat-form-field>
+                    <input matInput type="text">
+                </mat-form-field>
+                <button mat-icon-button aria-label="Add ingredient" (click)="onAddIngredient()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let ingredientRowData; columns: columnsToDisplay;"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+</table>
+
