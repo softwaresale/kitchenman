@@ -1,0 +1,73 @@
+
+<form [formGroup]="ingredientsForm">
+    <table mat-table #table [dataSource]="ingredientData" formArrayName="ingredients">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let ingredient; let idx = index" [formGroupName]="idx">
+                <mat-form-field>
+                    <input matInput type="text" value="{{ingredient.name}}" formControlName="name">
+                </mat-form-field>
+            </td>
+            <td mat-footer-cell *matFooterCellDef formGroupName="newIngredient">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let ingredient; let idx = index" [formGroupName]="idx">
+                <mat-form-field>
+                    <input matInput type="number" value="{{ingredient.qty}}" formControlName="qty">
+                </mat-form-field>
+            </td>
+            <td mat-footer-cell *matFooterCellDef formGroupName="newIngredient">
+                <mat-form-field>
+                    <mat-label>#</mat-label>
+                    <input matInput type="number" formControlName="qty">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef> Unit </th>
+            <td mat-cell *matCellDef="let ingredient; let idx = index" [formGroupName]="idx">
+                <mat-form-field>
+                    <input matInput type="text" value="{{ingredient.unit}}" formControlName="unit">
+                </mat-form-field>
+            </td>
+            <td mat-footer-cell *matFooterCellDef formGroupName="newIngredient">
+                <mat-form-field>
+                    <mat-label>Unit</mat-label>
+                    <input matInput type="text" formControlName="unit">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let ingredient; let idx = index" [formGroupName]="idx">
+                <mat-form-field>
+                    <input matInput type="text" value="{{ingredient.description}}" formControlName="description">
+                </mat-form-field>
+            </td>
+            <td mat-footer-cell *matFooterCellDef formGroupName="newIngredient">
+                <div class='footer-description-box'>
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput type="text" formControlName="description">
+                    </mat-form-field>
+                    <button mat-icon-button aria-label="Add ingredient" (click)="onAddIngredient()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let ingredientRowData; columns: columnsToDisplay;"></tr>
+        <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+    </table>
+</form>
