@@ -14,6 +14,7 @@ export class RecipeEditComponent implements OnInit {
 
   recipe: Recipe;
   recipeForm: FormGroup;
+  get ingredientsControl(): FormControl { return this.recipeForm.get('ingredients') as FormControl; }
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,6 +39,7 @@ export class RecipeEditComponent implements OnInit {
       ingredients: new FormControl(this.recipe.ingredients),
       directions: new FormControl(this.recipe.directions),
     });
-  }
 
+    this.ingredientsControl.valueChanges.subscribe(val => console.log(val));
+  }
 }
