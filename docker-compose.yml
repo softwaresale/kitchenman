@@ -10,11 +10,11 @@ services:
       POSTGRES_USER: kitchenman-user
       POSTGRES_DB: kitchenman
   api:
-    image: softwaresale/kitchenman:api
+    image: softwaresale/kitchenman-api:latest
     ports:
       - "3000:3000"
     deploy:
-      replicas: 2
+      replicas: 1 
       restart_policy:
         condition: on-failure
       resources:
@@ -23,3 +23,5 @@ services:
           memory: 50M
     links:
       - "db:database"
+    depends_on:
+      - db
