@@ -16,5 +16,10 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+RUN mkdir /var/log/kitchenman-api/
+VOLUME [ "/var/log/kitchenman-api/" ]
+
+ENV PRODUCTION=true
+
 EXPOSE 3000
 CMD [ "npm", "run", "start:prod" ]

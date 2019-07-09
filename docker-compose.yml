@@ -13,6 +13,8 @@ services:
     image: softwaresale/kitchenman-api:latest
     ports:
       - "3000:3000"
+    volumes:
+      - "/var/log/kitchenman-api/:/var/log/kitchenman-api"
     deploy:
       replicas: 1 
       restart_policy:

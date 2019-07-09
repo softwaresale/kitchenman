@@ -1,20 +1,26 @@
 
 import { createLogger, Logger, transports, format } from 'winston';
-import { LoggerService} from '@nestjs/common';
+import { LoggerService } from '@nestjs/common';
+import { default as config } from '../km-config';
 
 export class KitchenmanLogger implements LoggerService {
 
     private logger: Logger;
 
     constructor() {
+        let prefix = '';
+        if (process.env.PRODUCTION) {
+            prefix = config.prodLoggingBaseDir;
+        }
+
         this.logger = createLogger({
             transports: [
                 new transports.Console(),
                 new transports.File({
-                    filename: 'kitchenman-api-error.log', level: 'error',
+                    filename: `${prefix}/kitchenman-api-error.log', level: 'error`,
                 }),
                 new transports.File({
-                    filename: 'kitchenman-api.log',
+                    filename: `${prefix}/kitchenman-api.log`,
                 }),
             ],
             format: format.combine(
