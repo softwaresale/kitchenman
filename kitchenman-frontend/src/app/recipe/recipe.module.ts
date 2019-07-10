@@ -10,7 +10,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IngredientTableComponent } from './ingredient-table/ingredient-table.component';
 import { MatTableModule } from '@angular/material';
-import { IngredientsEditComponent } from './ingredients-edit/ingredients-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { IngredientsEditComponent } from './ingredients-edit/ingredients-edit.co
     RecipeEditComponent,
     DirectionListComponent,
     IngredientTableComponent,
-    IngredientsEditComponent,
   ],
   imports: [
     CommonModule,
