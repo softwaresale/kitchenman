@@ -13,7 +13,7 @@ import { default as config } from '../km-config';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'db',
       port: 5432,
       username: config.dbUser,
       password: config.dbPass,
