@@ -19,6 +19,7 @@ export class RecipeEditComponent implements OnInit {
   ingredientsData: MatTableDataSource<FormGroup>;
   columnsToShow = ['name', 'qty', 'unit', 'description'];
   footerColumns = ['name', 'qty', 'unit', 'description', 'addBtn'];
+  private validatorRegex = '^(\d*\.)?\d+$';
 
   get ingredientsArrayControl(): FormArray { return this.recipeForm.get('ingredients') as FormArray; }
 
@@ -46,12 +47,7 @@ export class RecipeEditComponent implements OnInit {
       author: [this.recipe.author, [Validators.required]],
       ingredients: this.fb.array(
         this.recipe.ingredients.map<FormGroup>((value: Ingredient, idx: number, array: Ingredient[]) =>
-          this.fb.group({
-            name: [value.name],
-            qty: [value.qty],
-            unit: [value.unit],
-            description: [value.description],
-          })
+          this.createIngredientControl(value)
         )
       ),
     });
@@ -59,12 +55,7 @@ export class RecipeEditComponent implements OnInit {
     console.log(this.recipeForm.value);
 
     // Create new ingredient form
-    this.newIngredientForm = this.fb.group({
-      name: [''],
-      qty: [0],
-      unit: [''],
-      description: [''],
-    });
+    this.newIngredientForm = this.createIngredientControl(null);
 
     // Set the table data
     this.ingredientsData = new MatTableDataSource<FormGroup>(this.ingredientsArrayControl.controls as FormGroup[]);
@@ -86,12 +77,23 @@ export class RecipeEditComponent implements OnInit {
     console.log(this.recipeForm.value);
   }
 
-  private createIngredientControl(ingredient: Ingredient): FormGroup {
-    return this.fb.group({
-      name: [ingredient.name],
-      qty: [ingredient.qty],
-      unit: [ingredient.unit],
-      description: [ingredient.description],
-    });
+  private createIngredientControl(ingredient: Ingredient | null): FormGroup {
+    if (ingredient) {
+      return this.fb.group({
+        name: [ingredient.name, [Validators.required]],
+        /*qty: [ingredient.qty, [Validators.pattern(this.validatorRegex)]],*/
+	qty: [ingredient.qty],
+        unit: [ingredient.unit],
+        description: [ingredient.description],
+      });
+    } else {
+      return this.fb.group({
+        name: ['', [Validators.required]],
+        /*qty: [0, [Validators.pattern(this.validatorRegex)]],*/
+	qty: [0],
+        unit: [''],
+        description: [''],
+      });
+    }
   }
 }
