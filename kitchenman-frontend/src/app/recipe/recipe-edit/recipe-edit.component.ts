@@ -16,12 +16,18 @@ export class RecipeEditComponent implements OnInit {
   recipe: Recipe;
   recipeForm: FormGroup;
   newIngredientForm: FormGroup;
+  newDirectionControl: FormControl;
   ingredientsData: MatTableDataSource<FormGroup>;
   columnsToShow = ['name', 'qty', 'unit', 'description'];
   footerColumns = ['name', 'qty', 'unit', 'description', 'addBtn'];
   private validatorRegex = '^(\d*\.)?\d+$';
 
   get ingredientsArrayControl(): FormArray { return this.recipeForm.get('ingredients') as FormArray; }
+  get directionsControls(): FormControl[] {
+    const directionArray = this.recipeForm.get('directions') as FormArray;
+    return directionArray.controls as FormControl[];
+  }
+  get directionsArray(): FormArray { return this.recipeForm.get('directions') as FormArray; }
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,12 +56,18 @@ export class RecipeEditComponent implements OnInit {
           this.createIngredientControl(value)
         )
       ),
+      directions: this.fb.array(
+        this.recipe.directions.map<FormControl>((value: string, idx: number, array: string[]) =>
+          this.createDirectionControl(value)
+        )
+      ),
     });
     console.log('form created');
     console.log(this.recipeForm.value);
 
     // Create new ingredient form
     this.newIngredientForm = this.createIngredientControl(null);
+    this.newDirectionControl = this.createDirectionControl('');
 
     // Set the table data
     this.ingredientsData = new MatTableDataSource<FormGroup>(this.ingredientsArrayControl.controls as FormGroup[]);
@@ -67,9 +79,19 @@ export class RecipeEditComponent implements OnInit {
     this.newIngredientForm.reset();
   }
 
+  onAddDirection(): void {
+    const val = this.newDirectionControl.value;
+    this.addNewDirection(val);
+    this.newDirectionControl.reset();
+  }
+
   private addNewIngredient(ingredient: Ingredient): void {
     this.ingredientsArrayControl.push(this.createIngredientControl(ingredient));
     this.ingredientsData.data = this.ingredientsArrayControl.controls as FormGroup[];
+  }
+
+  private addNewDirection(dir: string): void {
+    this.directionsArray.push(this.createDirectionControl(dir));
   }
 
   onSubmit(): void {
@@ -82,7 +104,7 @@ export class RecipeEditComponent implements OnInit {
       return this.fb.group({
         name: [ingredient.name, [Validators.required]],
         /*qty: [ingredient.qty, [Validators.pattern(this.validatorRegex)]],*/
-	qty: [ingredient.qty],
+        qty: [ingredient.qty],
         unit: [ingredient.unit],
         description: [ingredient.description],
       });
@@ -90,10 +112,14 @@ export class RecipeEditComponent implements OnInit {
       return this.fb.group({
         name: ['', [Validators.required]],
         /*qty: [0, [Validators.pattern(this.validatorRegex)]],*/
-	qty: [0],
+        qty: [0],
         unit: [''],
         description: [''],
       });
     }
+  }
+
+  private createDirectionControl(val: string): FormControl {
+    return this.fb.control(val);
   }
 }
