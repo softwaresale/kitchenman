@@ -6,7 +6,7 @@
 7a\
     location /api/v1/ {\
 	if ($request_method = 'OPTIONS') {\
-            add_header 'Access-Control-Allow-Origin' '*';\
+            add_header 'Access-Control-Allow-Origin' '*' always;\
             add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';\
             #\
             # Custom headers and headers various browsers *should* be OK with but aren't\
@@ -21,13 +21,13 @@
             return 204;\
         }\
         if ($request_method = 'POST') {\
-            add_header 'Access-Control-Allow-Origin' '*';\
+            add_header 'Access-Control-Allow-Origin' '*' always;\
             add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';\
             add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';\
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';\
         }\
         if ($request_method = 'GET') {\
-            add_header 'Access-Control-Allow-Origin' '*';\
+            add_header 'Access-Control-Allow-Origin' '*' always;\
             add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';\
             add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';\
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';\
@@ -46,3 +46,4 @@
 
 # Deny access to htaccess files
 41,43s/#//
+

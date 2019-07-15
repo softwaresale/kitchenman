@@ -1,3 +1,5 @@
+import { AuthModule } from './../auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
@@ -16,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    HttpClientModule,
+    AuthModule,
   ],
   exports: [
     ProfileEditComponent,

@@ -18,7 +18,7 @@ export class ProfileEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getById(0).subscribe({
+    this.userService.getUser().subscribe({
       next: (user: User) => this.user = user,
       error: (err: any) => console.error(err),
     });
