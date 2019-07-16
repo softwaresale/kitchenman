@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'api:3000',
+  apiUrl: 'http://gateway/api/v1',
 };

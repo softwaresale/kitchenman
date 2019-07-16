@@ -1,27 +1,29 @@
+import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
-import { USERS } from '../mock-data';
 import { Observable, of } from 'rxjs';
 import { User } from '../user';
+import { HttpClient } from '@angular/common/http';
+import { SessionService } from '../auth/session.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-  private mockUsers = USERS;
+  private apiUrl: string;
 
-  constructor() { }
-
-  getAll(): Observable<User[]> {
-    return of(this.mockUsers);
+  constructor(
+    private http: HttpClient,
+    private sessionService: SessionService,
+  ) {
+    this.apiUrl = environment.apiUrl;
   }
 
-  getById(id: number): Observable<User> {
-    return of(this.mockUsers[id]);
-  }
-
-  editById(id: number, updated: User): Observable<User> {
-    this.mockUsers[id] = updated;
-    return this.getById(id);
+  getUser(): Observable<User> {
+    if (this.sessionService.loggedIn) {
+      return this.http.get<User>(`${this.apiUrl}/users/me`, { headers: this.sessionService.newAuthHeader() });
+    } else {
+      return of(null);
+    }
   }
 }

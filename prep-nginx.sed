@@ -46,3 +46,4 @@
 
 # Deny access to htaccess files
 41,43s/#//
+

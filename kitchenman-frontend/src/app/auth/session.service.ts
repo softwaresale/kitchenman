@@ -19,10 +19,19 @@ export class SessionService {
   private jwt: string;
   private baseUrl: string;
 
+  get loggedIn(): boolean {
+    if (this.jwt) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor(
     private http: HttpClient,
   ) {
     this.baseUrl = environment.apiUrl;
+    console.log('Local baseurl');
     console.log(this.baseUrl);
   }
 
@@ -70,7 +79,7 @@ export class SessionService {
     if (this.jwt) {
       return `Authorization: Bearer ${this.jwt}`;
     } else {
-      return '';
+      return null;
     }
   }
 
