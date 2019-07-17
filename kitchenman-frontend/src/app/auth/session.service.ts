@@ -57,9 +57,14 @@ export class SessionService {
    * @memberof SessionService
    */
   login(user: string, pass: string): Observable<boolean> {
-    const headers: HttpHeaders = this.createAuthHeader(user, pass);
+    const authHeader: string = this.createAuthHeader(user, pass);
+    console.log('login headers');
+    console.log(authHeader);
     // Send a login request. If the response is authenticated, store the jwt and pass on true
-    return this.http.post<string>(`${this.baseUrl}/auth/login`, null, { headers, observe: 'response' }).pipe(
+    return this.http.post<string>(
+      `${this.baseUrl}/auth/login`,
+      null,
+      { headers: {Authorization: `Basic ${btoa(`${user}:${pass}`)}`}, observe: 'response' }).pipe(
       switchMap((value: HttpResponse<string>, idx: number) => {
         if (value.ok) {
           this.jwt = value.body;
@@ -97,11 +102,12 @@ export class SessionService {
     }
   }
 
-  private createAuthHeader(user: string, pass: string): HttpHeaders {
+  private createAuthHeader(user: string, pass: string): string {
+    /*
     const headers: HttpHeaders = new HttpHeaders({
       Authorization: `Basic ${btoa(`${user}:${pass}`)}`,
     });
-
-    return headers;
+    */
+    return `Authorization: Basic ${btoa(`${user}:${pass}`)}`;
   }
 }
