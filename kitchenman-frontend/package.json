@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docker:build": "docker build -t kitchenman-frontend . && docker tag kitchenman-frontend:latest softwaresale/kitchenman-frontend:latest",
+    "docker:build": "ng build --prod && docker build -t kitchenman-frontend . && docker tag kitchenman-frontend:latest softwaresale/kitchenman-frontend:latest",
     "docker:start": "docker run -p '8080:80' softwaresale/kitchenman-frontend:latest",
     "docker:shell": "docker run -p '8080:80' -it softwaresale/kitchenman-frontend:latest /bin/bash",
     "docker:br": "npm run docker:build &&npm run docker:start",
