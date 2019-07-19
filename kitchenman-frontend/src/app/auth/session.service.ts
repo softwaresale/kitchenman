@@ -36,10 +36,10 @@ export class SessionService {
   }
 
   signUp(user: User): Observable<boolean> {
-    return this.http.post<string>(`${this.baseUrl}/auth/signup`, user, {observe: 'response'}).pipe(
-      switchMap((value: HttpResponse<string>, index: number) => {
+    return this.http.post<any>(`${this.baseUrl}/auth/signup/`, user, {observe: 'response'}).pipe(
+      switchMap((value: HttpResponse<any>, index: number) => {
         if (value.ok) {
-          this.jwt = value.body;
+          this.jwt = value.body.token;
           return of(true);
         } else {
           return of(false);
@@ -57,17 +57,17 @@ export class SessionService {
    * @memberof SessionService
    */
   login(user: string, pass: string): Observable<boolean> {
-    const authHeader: string = this.createAuthHeader(user, pass);
+    const authHeader: HttpHeaders = this.createAuthHeader(user, pass);
     console.log('login headers');
     console.log(authHeader);
     // Send a login request. If the response is authenticated, store the jwt and pass on true
-    return this.http.post<string>(
+    return this.http.post<any>(
       `${this.baseUrl}/auth/login`,
       null,
-      { headers: {Authorization: `Basic ${btoa(`${user}:${pass}`)}`}, observe: 'response' }).pipe(
-      switchMap((value: HttpResponse<string>, idx: number) => {
+      { headers: authHeader, observe: 'response', }).pipe(
+      switchMap((value: HttpResponse<any>, idx: number) => {
         if (value.ok) {
-          this.jwt = value.body;
+          this.jwt = value.body.token;
           return of(true);
         } else {
           return of(false);
@@ -102,12 +102,13 @@ export class SessionService {
     }
   }
 
-  private createAuthHeader(user: string, pass: string): string {
-    /*
+  private createAuthHeader(user: string, pass: string): HttpHeaders {
+
     const headers: HttpHeaders = new HttpHeaders({
       Authorization: `Basic ${btoa(`${user}:${pass}`)}`,
     });
-    */
-    return `Authorization: Basic ${btoa(`${user}:${pass}`)}`;
+
+    return headers;
+    // return `Authorization: Basic ${btoa(`${user}:${pass}`)}`;
   }
 }

@@ -15,7 +15,8 @@ import { RecipeModule } from './recipe/recipe.module';
 import { ProfileModule } from './profile/profile.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PreflightFixerInterceptor } from './preflight-fixer.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,11 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileModule,
     AuthModule,
   ],
-  providers: [],
+  providers: [/*{
+    provide: HTTP_INTERCEPTORS,
+    useClass: PreflightFixerInterceptor,
+    multi: true
+  }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

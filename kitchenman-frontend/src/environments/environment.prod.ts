@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://gateway/api/v1',
+  apiUrl: 'http://localhost/api/v1',
+  domain: 'localhost',
 };
