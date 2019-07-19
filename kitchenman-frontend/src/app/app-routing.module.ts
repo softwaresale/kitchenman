@@ -6,13 +6,15 @@ import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component'
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileGuard } from './profile/profile.guard';
+import { ProfileModule } from './profile/profile.module';
 
 const routes: Routes = [
   { path: 'recipes', component: RecipesDashComponent },
   { path: 'recipes/:id', component: RecipeViewComponent },
   { path: 'recipes/edit/:id', component: RecipeEditComponent },
-  { path: 'profile', component: ProfileViewComponent },
-  { path: 'profile/edit', component: ProfileEditComponent },
+  { path: 'profile', component: ProfileViewComponent, canActivate: [ProfileGuard] },
+  { path: 'profile/edit', component: ProfileEditComponent, canActivate: [ProfileGuard] },
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];

@@ -16,7 +16,6 @@ import { ProfileModule } from './profile/profile.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { PreflightFixerInterceptor } from './preflight-fixer.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,11 +46,7 @@ import { PreflightFixerInterceptor } from './preflight-fixer.interceptor';
     ProfileModule,
     AuthModule,
   ],
-  providers: [/*{
-    provide: HTTP_INTERCEPTORS,
-    useClass: PreflightFixerInterceptor,
-    multi: true
-  }*/],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
