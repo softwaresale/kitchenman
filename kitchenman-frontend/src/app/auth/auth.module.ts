@@ -6,6 +6,7 @@ import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [LoginButtonsComponent, LoginButtonsComponent, LoginDialogComponent, SignupDialogComponent],
@@ -14,6 +15,7 @@ import { AppRoutingModule } from '../app-routing.module';
     MaterialModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    FlexLayoutModule,
   ],
   entryComponents: [
     LoginDialogComponent,

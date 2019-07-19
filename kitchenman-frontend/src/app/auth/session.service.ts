@@ -58,8 +58,6 @@ export class SessionService {
    */
   login(user: string, pass: string): Observable<boolean> {
     const authHeader: HttpHeaders = this.createAuthHeader(user, pass);
-    console.log('login headers');
-    console.log(authHeader);
     // Send a login request. If the response is authenticated, store the jwt and pass on true
     return this.http.post<any>(
       `${this.baseUrl}/auth/login`,
