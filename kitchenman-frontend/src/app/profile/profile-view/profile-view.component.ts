@@ -15,7 +15,7 @@ export class ProfileViewComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user$ = this.userService.getById(0);
+    this.user$ = this.userService.getUser();
   }
 
 }

@@ -14,6 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RecipeModule } from './recipe/recipe.module';
 import { ProfileModule } from './profile/profile.module';
 import { MaterialModule } from './material.module';
+import { AuthModule } from './auth/auth.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { MaterialModule } from './material.module';
     BrowserAnimationsModule,
     LayoutModule,
     MaterialModule,
+    HttpClientModule,
     /*
     MatToolbarModule,
     MatButtonModule,
@@ -41,6 +44,7 @@ import { MaterialModule } from './material.module';
     */
     RecipeModule,
     ProfileModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

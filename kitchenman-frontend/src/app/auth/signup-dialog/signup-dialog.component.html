@@ -1,0 +1,37 @@
+
+<h2 matDialogTitle>Sign Up</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="newUserForm" fxLayout="column">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="firstNameControl.invalid">Required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="lastNameControl.invalid">Required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="usernameControl.invalid">Required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="emailControl.invalid">Required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password">
+      <mat-error *ngIf="passwordControl.invalid">Required</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button matDialogClose>Close</button>
+  <button mat-button (click)="onSubmit()" [disabled]="newUserForm.invalid">Sign Up</button>
+</mat-dialog-actions>

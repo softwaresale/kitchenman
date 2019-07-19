@@ -1,0 +1,23 @@
+{
+  "name": "kitchenman",
+  "version": "0.1.0",
+  "description": "A website to store your recipes",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softwaresale/kitchenman.git"
+  },
+  "author": "Charlie Sale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/softwaresale/kitchenman/issues"
+  },
+  "homepage": "https://github.com/softwaresale/kitchenman#readme",
+  "devDependencies": {
+    "execa": "^2.0.3",
+    "gulp": "^4.0.2"
+  }
+}
