@@ -13,7 +13,13 @@ export class RecipeEffects {
   loadRecipes$ = this.actions$.pipe(
     ofType(RecipeActionTypes.LoadRecipes),
     switchMap(action => this.recipeService.getAll().pipe(
-      map(recipes => new RecipeLoadSuccess(recipes)),
+      map(recipes => {
+        if (recipes) {
+          return new RecipeLoadSuccess(recipes);
+        } else {
+          return new RecipeFailure('Service returned null');
+        }
+      }),
       catchError(error => {
         console.error('failed to dispatch load recipes');
         return of(new RecipeFailure(error));

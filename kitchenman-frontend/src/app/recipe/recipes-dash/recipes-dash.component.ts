@@ -30,7 +30,7 @@ export class RecipesDashComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new LoadRecipes());
     this.isError$ = this.store.pipe(select(selectRecipeError)).pipe(
-      tap(status => { if (status) { this.snackBar.open('Error loading recipes'); } })
+      tap(status => { if (status) { this.snackBar.open('Error loading recipes', 'Close', { duration: 3000 }); } })
     );
     this.recipes$ = this.store.pipe(select(selectRecipes));
     this.cards$ = combineLatest(this.recipes$, this.breakpointObserver.observe(Breakpoints.Handset)).pipe(
