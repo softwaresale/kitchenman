@@ -4,7 +4,8 @@
   "description": "A website to store your recipes",
   "main": "Gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "docker-compose up"
   },
   "repository": {
     "type": "git",

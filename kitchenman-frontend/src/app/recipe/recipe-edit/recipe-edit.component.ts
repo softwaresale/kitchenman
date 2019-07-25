@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Recipe, Ingredient } from '../../recipe';
+import { Recipe, Ingredient } from '../../interfaces/recipe';
 import { switchMap } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
 
@@ -39,7 +39,7 @@ export class RecipeEditComponent implements OnInit {
     // Get recipe from service
     this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap, index: number) => {
-        const id: number = Number.parseInt(params.get('id'), 10);
+        const id = params.get('id');
         return this.recipeService.getById(id);
       })
     ).subscribe({

@@ -1,7 +1,7 @@
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User } from '../user';
+import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../auth/session.service';
 

@@ -1,7 +1,11 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { User } from '../../user';
-import { FormGroup, FormControl } from '@angular/forms';
+import { User } from '../../interfaces/user';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser } from 'src/app/state/state';
+import { ProfileError } from 'src/app/state/profile/profile.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-edit',
@@ -10,24 +14,25 @@ import { UserService } from '../user.service';
 })
 export class ProfileEditComponent implements OnInit {
 
-  user: User;
+  user$: Observable<User>;
   userForm: FormGroup;
 
   constructor(
-    private userService: UserService,
+    private store: Store<AppState>,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.userService.getUser().subscribe({
-      next: (user: User) => this.user = user,
-      error: (err: any) => console.error(err),
-    });
 
-    this.userForm = new FormGroup({
-      username: new FormControl(this.user.username),
-      firstName: new FormControl(this.user.firstName),
-      lastName: new FormControl(this.user.lastName),
-      email: new FormControl(this.user.email),
+    this.user$ = this.store.pipe(select(selectUser));
+
+    this.user$.subscribe((user: User) => {
+      this.userForm = this.fb.group({
+        username: ['', [Validators.required]],
+        firstName: [''],
+        lastName: [''],
+        email: ['', [Validators.required, Validators.email]],
+      });
     });
   }
 

@@ -1,9 +1,10 @@
-import { User } from './../user';
+import { User } from '../interfaces/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { LoginInfo } from '../interfaces/login-info';
 
 /**
  * Handles a user's session info. It manages login, logout, and credentials

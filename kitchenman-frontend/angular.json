@@ -122,5 +122,8 @@
       }
     }
   },
-  "defaultProject": "kitchenman-frontend"
+  "defaultProject": "kitchenman-frontend",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
