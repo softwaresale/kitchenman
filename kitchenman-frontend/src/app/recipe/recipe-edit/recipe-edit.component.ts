@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Recipe, Ingredient } from '../../recipe';
+import { Recipe, Ingredient } from '../../interfaces/recipe';
 import { switchMap } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectRecipeId } from 'src/app/state/state';
+import { EditRecipe } from 'src/app/state/recipe/recipe.actions';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +18,7 @@ import { MatTableDataSource } from '@angular/material';
 export class RecipeEditComponent implements OnInit {
 
   recipe: Recipe;
+  recipe$: Observable<Recipe>;
   recipeForm: FormGroup;
   newIngredientForm: FormGroup;
   newDirectionControl: FormControl;
@@ -31,26 +36,27 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private recipeService: RecipeService,
+    private store: Store<AppState>,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
     // Get recipe from service
-    this.activatedRoute.paramMap.pipe(
+    this.recipe$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap, index: number) => {
-        const id: number = Number.parseInt(params.get('id'), 10);
-        return this.recipeService.getById(id);
+        const id = params.get('id');
+        return this.store.pipe(select(selectRecipeId, { id }));
       })
-    ).subscribe({
-      next: (rec: Recipe) => this.recipe = rec,
-      error: (err: any) => console.error(err),
-    });
+    );
+
+    // Subscribe to the state
+    this.recipe$.subscribe(recipe => this.recipe = recipe, err => console.error(err));
 
     // Create the form
     this.recipeForm = this.fb.group({
       name: [this.recipe.name, [Validators.required]],
-      author: [this.recipe.author, [Validators.required]],
+      author: [this.recipe.author.username, [Validators.required]],
+      description: [this.recipe.description],
       ingredients: this.fb.array(
         this.recipe.ingredients.map<FormGroup>((value: Ingredient, idx: number, array: Ingredient[]) =>
           this.createIngredientControl(value)
@@ -62,8 +68,6 @@ export class RecipeEditComponent implements OnInit {
         )
       ),
     });
-    console.log('form created');
-    console.log(this.recipeForm.value);
 
     // Create new ingredient form
     this.newIngredientForm = this.createIngredientControl(null);
@@ -95,8 +99,9 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('submitted');
-    console.log(this.recipeForm.value);
+    const formValue = this.recipeForm.value;
+    const newRecipe: Recipe = { ...formValue, id: this.recipe.id, author: this.recipe.author };
+    this.store.dispatch(new EditRecipe(newRecipe));
   }
 
   private createIngredientControl(ingredient: Ingredient | null): FormGroup {

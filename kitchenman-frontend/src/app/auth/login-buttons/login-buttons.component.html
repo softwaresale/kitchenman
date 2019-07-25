@@ -1,9 +1,9 @@
 
-<ng-container *ngIf="!loggedIn; else elseTemplate">
+<ng-container *ngIf="!(loggedIn$ | async); else loggedInTemplate">
   <button mat-button color="accent" (click)="onLogin()">Login</button>
   <button mat-button (click)="onSignUp()">Sign Up</button>
 </ng-container>
-<ng-template #elseTemplate>
+<ng-template #loggedInTemplate>
   <button mat-button color="accent" (click)="onLogout()">Logout</button>
   <a mat-button [routerLink]="['/profile']">Profile</a>
 </ng-template>

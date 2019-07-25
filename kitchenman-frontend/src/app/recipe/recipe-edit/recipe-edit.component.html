@@ -7,8 +7,8 @@
       <input matInput  type='text' placeholder="{{recipe.name}}" formControlName='name'>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Author</mat-label>
-      <input matInput type='text' placeholder="{{recipe.author}}" formControlName='author'>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
     <!-- Begin the ingredient table -->
     <table mat-table #table [dataSource]="ingredientsData">
@@ -96,6 +96,7 @@
       </mat-list-item>
       <mat-list-item>
         <mat-form-field class="direction-edit-fields">
+          <mat-label>New Direction</mat-label>
           <input matInput type="text" [formControl]="newDirectionControl">
         </mat-form-field>
         <button mat-icon-button (click)="onAddDirection()"><mat-icon>add</mat-icon></button>

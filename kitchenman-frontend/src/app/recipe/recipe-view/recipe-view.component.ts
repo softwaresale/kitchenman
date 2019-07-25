@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Recipe } from '../../recipe';
+import { Recipe } from '../../interfaces/recipe';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { RECIPES } from '../../mock-data';
-import { RecipeService } from '../recipe.service';
+import { AppState, selectRecipeId } from 'src/app/state/state';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-recipe-view',
@@ -17,14 +17,14 @@ export class RecipeViewComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private recipeService: RecipeService,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
     this.recipe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap, index: number) => {
-        const id: number = Number.parseInt(params.get('id'), 10);
-        return this.recipeService.getById(id);
+      switchMap((map: ParamMap) => {
+        const id = map.get('id');
+        return this.store.pipe(select(selectRecipeId, {id}));
       })
     );
   }

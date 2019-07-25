@@ -1,27 +1,53 @@
 import { Injectable } from '@angular/core';
-import { RECIPES } from '../mock-data';
 import { Observable, of, from } from 'rxjs';
-import { Recipe } from '../recipe';
+import { Recipe } from '../interfaces/recipe';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { SessionService } from '../auth/session.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
 
-  private mockRecipes = RECIPES;
+  private baseUrl: string;
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private sessionService: SessionService,
+  ) {
+    this.baseUrl = environment.apiUrl;
+  }
 
   getAll(): Observable<Recipe[]> {
-    return of(this.mockRecipes);
+    if (this.sessionService.loggedIn) {
+      return this.http.get<Recipe[]>(`${this.baseUrl}/recipe`, { headers: this.sessionService.newAuthHeader() });
+    } else {
+      return of(null);
+    }
   }
 
-  getById(id: number): Observable<Recipe> {
-    return of(this.mockRecipes[id]);
+  getById(id: string): Observable<Recipe> {
+    if (this.sessionService.loggedIn) {
+      return this.http.get<Recipe[]>(`${this.baseUrl}/recipe/${id}`, { headers: this.sessionService.newAuthHeader() }).pipe(
+        map(recipes => recipes[0])
+      );
+    } else {
+      return of(null);
+    }
   }
 
-  editById(id: number, updated: Recipe): Observable<Recipe> {
-    this.mockRecipes[id] = updated;
-    return this.getById(id);
+  editById(id: string, updated: Recipe): Observable<boolean> {
+    if (this.sessionService.loggedIn) {
+      return this.http.put<Recipe>(
+        `${this.baseUrl}/recipe/${id}`,
+        updated,
+        { headers: this.sessionService.newAuthHeader(), observe: 'response' }).pipe(
+          map(response => response.ok)
+        );
+    } else {
+      return of(false);
+    }
   }
 }

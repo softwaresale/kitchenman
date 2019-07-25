@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Recipe } from '../../recipe';
-import { RecipeService } from '../recipe.service';
+import { map, tap } from 'rxjs/operators';
+import { Breakpoints, BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { Recipe } from '../../interfaces/recipe';
+import { Observable, combineLatest } from 'rxjs';
+import { AppState, selectRecipes, selectRecipeError } from 'src/app/state/state';
+import { Store, select } from '@ngrx/store';
+import { LoadRecipes } from 'src/app/state/recipe/recipe.actions';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-recipes-dash',
@@ -11,34 +15,37 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipesDashComponent implements OnInit {
 
-  recipes: Recipe[];
+  recipes$: Observable<Recipe[]>;
+  isError$: Observable<boolean>;
 
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { recipe: this.recipes[0], cols: 1, rows: 1 },
-          { recipe: this.recipes[1], cols: 1, rows: 1 },
-        ];
-      }
-
-      return [
-        { recipe: this.recipes[0], cols: 2, rows: 1 },
-        { recipe: this.recipes[1], cols: 1, rows: 1 },
-      ];
-    })
-  );
+  cards$: Observable<{recipe: Recipe, cols: number, rows: number}[]>;
 
   constructor(
+    private store: Store<AppState>,
     private breakpointObserver: BreakpointObserver,
-    private recipeService: RecipeService,
-  ) {}
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit(): void {
-    this.recipeService.getAll().subscribe({
-      next: (recipes: Recipe[]) => { this.recipes = recipes; },
-      error: (err: any) => { console.log(err); }
-    });
+    this.store.dispatch(new LoadRecipes());
+    this.isError$ = this.store.pipe(select(selectRecipeError)).pipe(
+      tap(status => { if (status) { this.snackBar.open('Error loading recipes', 'Close', { duration: 3000 }); } })
+    );
+    this.recipes$ = this.store.pipe(select(selectRecipes));
+    this.cards$ = combineLatest([this.recipes$, this.breakpointObserver.observe(Breakpoints.Handset)]).pipe(
+      map(array => ({ recipes: array[0], matches: array[1].matches })),
+      map(obj => {
+        if (obj.matches) {
+          return obj.recipes.map((recipe: Recipe) =>
+            ({ recipe, cols: 1, rows: 1 })
+          );
+        } else {
+          return obj.recipes.map((recipe: Recipe) =>
+            ({ recipe, cols: 1, rows: 1 }) // * Handle large display differently someday
+          );
+        }
+      })
+    );
   }
 }

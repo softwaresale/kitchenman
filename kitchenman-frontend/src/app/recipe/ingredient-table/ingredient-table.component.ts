@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Optional, Self, Input } from '@angular/core';
-import { Ingredient } from 'src/app/recipe';
+import { Ingredient } from 'src/app/interfaces/recipe';
 
 @Component({
   selector: 'app-ingredient-table',

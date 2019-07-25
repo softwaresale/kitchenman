@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../user';
-import { UserService } from '../user.service';
+import { User } from '../../interfaces/user';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AppState, selectUser } from 'src/app/state/state';
 
 @Component({
   selector: 'app-profile-view',
@@ -11,11 +12,14 @@ import { Observable } from 'rxjs';
 export class ProfileViewComponent implements OnInit {
 
   user$: Observable<User>;
+  isError$: Observable<boolean>;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
-    this.user$ = this.userService.getUser();
+    this.user$ = this.store.pipe(select(selectUser));
   }
 
 }

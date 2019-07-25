@@ -10,9 +10,9 @@ import { ProfileGuard } from './profile/profile.guard';
 import { ProfileModule } from './profile/profile.module';
 
 const routes: Routes = [
-  { path: 'recipes', component: RecipesDashComponent },
-  { path: 'recipes/:id', component: RecipeViewComponent },
-  { path: 'recipes/edit/:id', component: RecipeEditComponent },
+  { path: 'recipes', component: RecipesDashComponent, canActivate: [ProfileGuard] },
+  { path: 'recipes/:id', component: RecipeViewComponent, canActivate: [ProfileGuard] },
+  { path: 'recipes/edit/:id', component: RecipeEditComponent, canActivate: [ProfileGuard] },
   { path: 'profile', component: ProfileViewComponent, canActivate: [ProfileGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [ProfileGuard] },
   { path: 'home', component: HomeComponent },

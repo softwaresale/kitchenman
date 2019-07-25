@@ -1,3 +1,4 @@
+import { User } from './user';
 
 export interface Ingredient {
     name: string;
@@ -7,9 +8,9 @@ export interface Ingredient {
 }
 
 export interface Recipe {
-    id?: number;
+    id?: string;
     name: string;
-    author: string;
+    author: User;
     description?: string;
     imgUri?: string;
     ingredients?: Ingredient[]; // TODO make this required

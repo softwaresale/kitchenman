@@ -1,22 +1,22 @@
 
 <div class='layout'>
-  <form [formGroup]='userForm' fxLayout="column" fxLayoutAlign="start start" class='user-edit-form'>
+  <form [formGroup]='userForm' fxLayout="column" fxLayoutAlign="start start" class='user-edit-form' (ngSubmit)="onSubmit()">
     <h3 class='mat-h3'>Edit Profile</h3>
     <mat-form-field class='user-edit-field'>
       <mat-label>First Name</mat-label>
-      <input matInput type="text" formControlName='firstName' placeholder="{{ user.firstName }}">
+      <input matInput type="text" formControlName='firstName'>
     </mat-form-field>
     <mat-form-field class='user-edit-field'>
       <mat-label>Last Name</mat-label>
-      <input matInput type="text" formControlName='lastName' placeholder="{{user.lastName}}">
+      <input matInput type="text" formControlName='lastName'>
     </mat-form-field>
     <mat-form-field class='user-edit-field'>
       <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName='email' placeholder="{{user.email}}">
+      <input matInput type="email" formControlName='email'>
     </mat-form-field>
     <mat-form-field class='user-edit-field'>
       <mat-label>Username</mat-label>
-      <input matInput type="text" formControlName='username' placeholder="{{user.username}}">
+      <input matInput type="text" formControlName='username'>
     </mat-form-field>
     <div class='button-box'>
       <button mat-button type="submit">Save</button>
