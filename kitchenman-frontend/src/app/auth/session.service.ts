@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LoginInfo } from '../interfaces/login-info';
 
 /**
  * Handles a user's session info. It manages login, logout, and credentials
@@ -17,7 +16,8 @@ import { LoginInfo } from '../interfaces/login-info';
 })
 export class SessionService {
 
-  private jwt: string;
+  private get jwt(): string { return localStorage.getItem('jwt'); }
+  private set jwt(jwt: string) { localStorage.setItem('jwt', jwt); }
   private baseUrl: string;
 
   get loggedIn(): boolean {
@@ -32,8 +32,6 @@ export class SessionService {
     private http: HttpClient,
   ) {
     this.baseUrl = environment.apiUrl;
-    console.log('Local baseurl');
-    console.log(this.baseUrl);
   }
 
   signUp(user: User): Observable<boolean> {
@@ -76,7 +74,7 @@ export class SessionService {
   }
 
   logout(): void {
-    this.jwt = null;
+    localStorage.removeItem('jwt');
   }
 
   get authHeader(): string {

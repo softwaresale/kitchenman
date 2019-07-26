@@ -14,6 +14,7 @@ export enum ProfileActionTypes {
   LoginFailed = '[Profile] Login Failed',
   ProfileError = '[Profile] Error',
   UpdateProfileSuccess = '[Profile] Successfully updated',
+  ProfileCheckJwt = '[Profile] Check for JWT',
 }
 
 export class LoadProfiles implements Action {
@@ -80,6 +81,12 @@ export class UpdateProfileSuccess implements Action {
   constructor() { }
 }
 
+export class ProfileCheckJwt implements Action {
+  readonly type = ProfileActionTypes.ProfileCheckJwt;
+
+  constructor(public exists: boolean) { }
+}
+
 export type ProfileActions
   = LoadProfiles
   | UpdateProfile
@@ -91,4 +98,5 @@ export type ProfileActions
   | LoginFailed
   | LoadSuccess
   | ProfileError
-  | UpdateProfileSuccess;
+  | UpdateProfileSuccess
+  | ProfileCheckJwt;

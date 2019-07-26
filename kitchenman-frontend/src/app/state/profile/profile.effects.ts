@@ -97,6 +97,19 @@ export class ProfileEffects {
     map(action => new LoadProfiles()),
   );
 
+  @Effect()
+  profileCheckJwt$ = this.actions$.pipe(
+    ofType(ProfileActionTypes.ProfileCheckJwt),
+    map(action => {
+      if (action.exists) {
+        return new LoginSuccess();
+      } else {
+        return new LoginFailed('Jwt does not already exist. You must login');
+      }
+    }),
+    catchError(err => of(new ProfileError(err))),
+  );
+
   constructor(
     private actions$: Actions<ProfileActions>,
     private sessionService: SessionService,
