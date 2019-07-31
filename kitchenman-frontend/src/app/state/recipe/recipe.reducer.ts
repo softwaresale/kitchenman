@@ -4,14 +4,23 @@ import { Recipe } from 'src/app/interfaces/recipe';
 
 export interface State {
   recipes: {[ids: string]: Recipe};
+  newRecipe: Recipe;
   isError: boolean;
   errorInfo: any;
 }
 
 export const initialState: State = {
-  recipes: {},
+  recipes: {
+  },
   isError: false,
   errorInfo: null,
+  newRecipe: {
+    name: 'Untitled',
+    author: null,
+    description: '',
+    ingredients: [],
+    directions: [],
+  },
 };
 
 export function reducer(state = initialState, action: RecipeActions): State {

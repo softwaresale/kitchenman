@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { RecipeService } from '../recipe.service';
+import { ActivatedRoute } from '@angular/router';
 import { Recipe, Ingredient } from '../../interfaces/recipe';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectRecipeId } from 'src/app/state/state';
-import { EditRecipe } from 'src/app/state/recipe/recipe.actions';
+import { AppState, selectRecipeId, selectUser, selectNewRecipe } from 'src/app/state/state';
+import { EditRecipe, NewRecipe } from 'src/app/state/recipe/recipe.actions';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -42,11 +42,18 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit() {
     // Get recipe from service
-    this.recipe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap, index: number) => {
-        const id = params.get('id');
-        return this.store.pipe(select(selectRecipeId, { id }));
-      })
+    this.recipe$ = combineLatest([this.store.pipe(select(selectUser)), this.activatedRoute.paramMap]).pipe(
+      map(val => ({ user: val[0], map: val[1] })),
+      switchMap(obj => {
+        const id = obj.map.get('id');
+        if (id === 'new') {
+          return this.store.pipe(select(selectNewRecipe)).pipe(
+            map(recipe => ({ ...recipe, author: obj.user })),
+          );
+        } else {
+          return this.store.pipe(select(selectRecipeId, {id}));
+        }
+      }),
     );
 
     // Subscribe to the state
@@ -100,8 +107,12 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit(): void {
     const formValue = this.recipeForm.value;
-    const newRecipe: Recipe = { ...formValue, id: this.recipe.id, author: this.recipe.author };
-    this.store.dispatch(new EditRecipe(newRecipe));
+    const newRecipe: Recipe = { ...formValue, author: this.recipe.author, id: this.recipe.id || null };
+    if (newRecipe.id) {
+      this.store.dispatch(new EditRecipe(newRecipe));
+    } else {
+      this.store.dispatch(new NewRecipe(newRecipe));
+    }
   }
 
   private createIngredientControl(ingredient: Ingredient | null): FormGroup {

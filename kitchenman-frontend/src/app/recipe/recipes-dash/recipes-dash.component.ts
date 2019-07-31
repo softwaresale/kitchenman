@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { map, tap, filter } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Recipe } from '../../interfaces/recipe';
 import { Observable, combineLatest } from 'rxjs';
@@ -32,7 +32,11 @@ export class RecipesDashComponent implements OnInit {
     this.isError$ = this.store.pipe(select(selectRecipeError)).pipe(
       tap(status => { if (status) { this.snackBar.open('Error loading recipes', 'Close', { duration: 3000 }); } })
     );
-    this.recipes$ = this.store.pipe(select(selectRecipes));
+    this.recipes$ = this.store.pipe(
+      select(selectRecipes),
+      map(recipes => recipes.filter(value => value.id !== 'new')),
+    );
+
     this.cards$ = combineLatest([this.recipes$, this.breakpointObserver.observe(Breakpoints.Handset)]).pipe(
       map(array => ({ recipes: array[0], matches: array[1].matches })),
       map(obj => {

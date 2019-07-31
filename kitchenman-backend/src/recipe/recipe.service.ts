@@ -15,12 +15,14 @@ export class RecipeService {
         private readonly userService: UserService,
     ) { }
 
-    async create(author: User, recipeCreate: RecipeCreateDto): Promise<InsertResult> {
-        if (!recipeCreate.author) {
-            recipeCreate.author = author;
-        }
-
-        return this.recipeRepo.insert(recipeCreate);
+    async create(author: User, recipeCreate: RecipeCreateDto): Promise<Recipe> {
+        const recipe = this.recipeRepo.create();
+        recipe.author = author;
+        recipe.description = recipeCreate.description;
+        recipe.directions = recipeCreate.directions;
+        recipe.ingredients = recipeCreate.ingredients;
+        recipe.name = recipeCreate.name;
+        return this.recipeRepo.save(recipe);
     }
 
     async update(id: string, recipeUpdate: RecipeUpdateDto): Promise<UpdateResult> {

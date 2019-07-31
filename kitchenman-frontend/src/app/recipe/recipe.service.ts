@@ -38,6 +38,18 @@ export class RecipeService {
     }
   }
 
+  newRecipe(recipe: Recipe): Observable<boolean> {
+    if (this.sessionService.loggedIn) {
+      return this.http.post(
+        `${this.baseUrl}/recipe`,
+        recipe,
+        { headers: this.sessionService.newAuthHeader(), observe: 'response' }
+      ).pipe(
+        map(response => response.ok)
+      );
+    }
+  }
+
   editById(id: string, updated: Recipe): Observable<boolean> {
     if (this.sessionService.loggedIn) {
       return this.http.put<Recipe>(
@@ -46,6 +58,19 @@ export class RecipeService {
         { headers: this.sessionService.newAuthHeader(), observe: 'response' }).pipe(
           map(response => response.ok)
         );
+    } else {
+      return of(false);
+    }
+  }
+
+  deleteRecipe(id: string): Observable<boolean> {
+    if (this.sessionService.loggedIn) {
+      return this.http.delete<Recipe>(
+        `${this.baseUrl}/recipe/${id}`,
+        { headers: this.sessionService.newAuthHeader(), observe: 'response' }
+      ).pipe(
+        map(response => response.ok)
+      );
     } else {
       return of(false);
     }

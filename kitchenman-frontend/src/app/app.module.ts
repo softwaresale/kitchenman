@@ -18,7 +18,7 @@ import { RecipeEffects } from './state/recipe/recipe.effects';
 import { ProfileEffects } from './state/profile/profile.effects';
 import { reducers as AppReducers } from './state/state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot(AppReducers),
     EffectsModule.forRoot([RecipeEffects, ProfileEffects]),
     StoreDevtoolsModule.instrument(),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

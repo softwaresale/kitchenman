@@ -28,6 +28,7 @@ export const selectRecipes = (state: AppState) => {
   return Object.values(recipeObj);
 };
 export const selectRecipeError = (state: AppState) => state.recipe.isError;
+export const selectNewRecipe = (state: AppState) => state.recipe.newRecipe;
 
 // Get a specific recipe
 export const selectRecipeId = createSelector(

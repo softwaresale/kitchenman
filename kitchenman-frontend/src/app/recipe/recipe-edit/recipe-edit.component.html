@@ -81,8 +81,8 @@
       </ng-container>
 
       <ng-container matColumnDef="addBtn">
-        <td mat-footer-cell *matFooterCellDef (click)="onAddNewIngredient()">
-          <button mat-icon-button><mat-icon>add</mat-icon></button>
+        <td mat-footer-cell *matFooterCellDef>
+          <button mat-icon-button type="button" (click)="onAddNewIngredient()"><mat-icon>add</mat-icon></button>
         </td>
       </ng-container>
     </table>
@@ -99,7 +99,7 @@
           <mat-label>New Direction</mat-label>
           <input matInput type="text" [formControl]="newDirectionControl">
         </mat-form-field>
-        <button mat-icon-button (click)="onAddDirection()"><mat-icon>add</mat-icon></button>
+        <button mat-icon-button (click)="onAddDirection()" type="button"><mat-icon>add</mat-icon></button>
       </mat-list-item>
     </mat-list>
     <!-- End direction edit list -->
