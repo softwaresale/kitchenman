@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe, Ingredient } from '../../interfaces/recipe';
 import { switchMap, map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
@@ -38,6 +38,7 @@ export class RecipeEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
     private fb: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -113,6 +114,7 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.store.dispatch(new NewRecipe(newRecipe));
     }
+    this.router.navigate(['/recipes']);
   }
 
   private createIngredientControl(ingredient: Ingredient | null): FormGroup {
