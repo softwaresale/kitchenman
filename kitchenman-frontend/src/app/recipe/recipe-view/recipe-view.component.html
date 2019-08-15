@@ -18,6 +18,6 @@
     <app-direction-list [directions]='recipe.directions'></app-direction-list>
   </div>
   <div class='button-box'>
-    <a mat-button routerLink="[ '/recipes', 'edit', recipe.id ]">EDIT</a>
+    <button mat-button (click)="onEdit(recipe.id)">EDIT</button>
   </div>
 </div>

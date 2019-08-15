@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../../interfaces/recipe';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AppState, selectRecipeId } from 'src/app/state/state';
@@ -18,6 +18,7 @@ export class RecipeViewComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,4 +30,8 @@ export class RecipeViewComponent implements OnInit {
     );
   }
 
+  onEdit(id: string): void {
+    const url = `recipes/edit/${id}`;
+    this.router.navigate([url]);
+  }
 }
