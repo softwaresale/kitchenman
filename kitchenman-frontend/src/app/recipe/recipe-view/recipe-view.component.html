@@ -17,4 +17,7 @@
     <h3 class='mat-h3'>Directions</h3>
     <app-direction-list [directions]='recipe.directions'></app-direction-list>
   </div>
+  <div class='button-box'>
+    <a mat-button routerLink="[ '/recipes', 'edit', recipe.id ]">EDIT</a>
+  </div>
 </div>

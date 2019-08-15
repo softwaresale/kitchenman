@@ -6,6 +6,8 @@ import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from 'src/app/state/state';
 import { ProfileError, UpdateProfile } from 'src/app/state/profile/profile.actions';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-profile-edit',
@@ -21,6 +23,8 @@ export class ProfileEditComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -42,6 +46,9 @@ export class ProfileEditComponent implements OnInit {
       const formValue = this.userForm.value;
       const userObject = { ...formValue, id: this.user.id };
       this.store.dispatch(new UpdateProfile(userObject));
+      this.router.navigate(['/profile/']);
+    } else {
+      this.snackBar.open('Form is invalid');
     }
   }
 }
