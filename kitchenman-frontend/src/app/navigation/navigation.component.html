@@ -20,14 +20,15 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-
       <a class='title-link' routerLink='/home'><span>Kitchenman</span></a>
-      <mat-divider
-        [inset]="true"
-        [vertical]="true">
-      </mat-divider>
-      <a mat-button routerLink="/recipes">Recipes</a>
-      <app-login-buttons></app-login-buttons>
+      <div class='toolbar-content' *ngIf="!(isHandset$ | async)">
+        <mat-divider
+          [inset]="true"
+          [vertical]="true">
+        </mat-divider>
+        <a mat-button routerLink="/recipes">Recipes</a>
+        <app-login-buttons></app-login-buttons>
+      </div>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

@@ -5,9 +5,9 @@ import { ProfileViewComponent } from './profile/profile-view/profile-view.compon
 import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
-import { HomeComponent } from './home/home.component';
 import { ProfileGuard } from './profile/profile.guard';
 import { ProfileModule } from './profile/profile.module';
+import { HomeDashComponent } from './home/home-dash/home-dash.component';
 
 const routes: Routes = [
   { path: 'recipes', component: RecipesDashComponent, canActivate: [ProfileGuard] },
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'recipes/edit/:id', component: RecipeEditComponent, canActivate: [ProfileGuard] },
   { path: 'profile', component: ProfileViewComponent, canActivate: [ProfileGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [ProfileGuard] },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeDashComponent },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];
 

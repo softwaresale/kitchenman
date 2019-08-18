@@ -13,8 +13,9 @@
 - [x] Add component for editing direction lists
 - [x] Add authentication button and service
 - [ ] Overhaul profile view component to show info
-- [ ] Add endpoint/button/component for editing recipes
+- [x] Add endpoint/button/component for editing recipes
 - [ ] Create dashboard view to show 3 recipes
+- [ ] Show dashboard pages to go to different things
 
 ### Existing features
 

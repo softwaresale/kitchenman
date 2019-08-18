@@ -20,3 +20,7 @@
   text-decoration: none;
   color: inherit;
 }
+
+.toolbar-content {
+  display: inline;
+}
