@@ -33,7 +33,7 @@
     "@types/passport-http": "^0.3.8",
     "@types/passport-jwt": "^3.0.1",
     "@types/winston": "^2.4.4",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "braces": ">=2.3.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.9.1",
